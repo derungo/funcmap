@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build
+out/
+dist/
+*.vsix
+
+# Runtime data
+*.db
+ai-links.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# VSCode
+.vscode-test/
+
+# Environment
+.env
+.env.local
+
+# Misc
+.DS_Store
+Thumbs.db 
