@@ -5,6 +5,10 @@ import { saveToSqlite } from '../storage/sqliteStorage';
 import { logger } from '../utils/logger';
 import { getConfiguration } from '../utils/config';
 
+// @ai-link name=updateAIIndex
+// @ai-depends on=parseAITags,saveToJson,saveToSQLite,getConfiguration
+// @ai-related vscode.ProgressLocation,logger
+// @ai-exec index,update
 export async function updateIndex(context: vscode.ExtensionContext): Promise<void> {
   try {
     logger.info('Starting AI function registry update');

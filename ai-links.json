@@ -1,0 +1,26 @@
+{
+  "functions": [
+    {
+      "filePath": "src/parser/aiTagParser.ts",
+      "functionName": "parseAITags",
+      "dependsOn": ["vscode.workspace.findFiles", "vscode.workspace.openTextDocument"],
+      "related": ["AITag", "logger"],
+      "execTokens": ["parse", "index"]
+    },
+    {
+      "filePath": "src/storage/sqliteStorage.ts",
+      "functionName": "saveToSQLite",
+      "dependsOn": ["initializeDatabase", "parseAITags"],
+      "related": ["AITag", "Database"],
+      "execTokens": ["storage", "database"]
+    },
+    {
+      "filePath": "src/commands/updateIndex.ts",
+      "functionName": "updateAIIndex",
+      "dependsOn": ["parseAITags", "saveToJson", "saveToSQLite", "getConfiguration"],
+      "related": ["vscode.ProgressLocation", "logger"],
+      "execTokens": ["index", "update"]
+    }
+  ],
+  "lastUpdated": "2023-07-21T15:32:41.123Z"
+} 
