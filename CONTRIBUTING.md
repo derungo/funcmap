@@ -6,7 +6,7 @@ Thank you for your interest in contributing to the AI Contextual Linking & Execu
 
 ### Branching Strategy
 
-- `main`: The main branch contains the stable version of the project
+- `master`: The main branch contains the stable version of the project
 - `develop`: Development branch where features are integrated
 - Feature branches: Create from `develop` with the naming convention `feature/feature-name`
 - Bug fix branches: Create from `develop` with the naming convention `fix/bug-name`
@@ -88,6 +88,16 @@ Fixes #456
 6. Run tests: `npm test`
 7. Commit your changes following the commit guidelines
 8. Push to your fork and submit a pull request
+
+## Building and Packaging
+
+1. Build the extension: `npm run compile`
+2. Package the extension: `npm run package`
+3. Test the packaged extension by installing it in VS Code:
+   - Go to Extensions view (Ctrl+Shift+X)
+   - Click "..." menu in the top-right corner
+   - Select "Install from VSIX..."
+   - Navigate to and select the generated VSIX file
 
 ## Code Style
 

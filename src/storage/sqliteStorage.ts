@@ -114,6 +114,10 @@ export async function initializeDatabase(): Promise<void> {
 /**
  * Save AI tags to SQLite database
  */
+// @ai-link name=saveToSQLite
+// @ai-depends on=initializeDatabase,parseAITags
+// @ai-related AITag,Database
+// @ai-exec storage,database
 export async function saveToSqlite(tags: AITag[]): Promise<void> {
   try {
     if (!db) {

@@ -16,7 +16,7 @@ The parser is implemented in `src/parser/aiTagParser.ts` and uses a simplified a
 - Class methods
 
 #### Current Language Limitations
-The current parser implementation primarily targets JavaScript and TypeScript code. While the extension can be configured to scan other file types, the function detection logic is optimized for JavaScript/TypeScript syntax patterns. Support for other languages would require implementing language-specific parsers.
+The current implementation primarily targets JavaScript and TypeScript code. While the extension can be configured to scan other file types, the function detection logic is optimized for JavaScript/TypeScript syntax patterns. Support for other languages would require implementing language-specific parsers.
 
 ### 2. Storage Layer
 The extension supports two storage options:

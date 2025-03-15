@@ -52,7 +52,7 @@ export async function loadFromJson(): Promise<AIFunctionRegistry | null> {
     logger.info(`Successfully loaded registry with ${registry.functions.length} functions`);
     return registry;
   } catch (error) {
-    logger.warn('No existing registry found or error reading file', error instanceof Error ? error : undefined);
+    logger.warn('No existing registry found or error reading file: ' + (error instanceof Error ? error.message : String(error)));
     return null;
   }
 }

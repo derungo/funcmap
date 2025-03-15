@@ -9,6 +9,10 @@ export interface AITag {
   execTokens: string[];
 }
 
+// @ai-link name=parseAITags
+// @ai-depends on=vscode.workspace.findFiles,vscode.workspace.openTextDocument
+// @ai-related AITag,logger
+// @ai-exec parse,index
 export async function parseFilesForAITags(): Promise<AITag[]> {
   const tags: AITag[] = [];
   
