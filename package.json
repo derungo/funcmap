@@ -1,5 +1,5 @@
 {
-  "name": "ai-contextual-linking",
+  "name": "funcmap",
   "displayName": "AI Contextual Linking & Execution System",
   "description": "Create a pre-indexed, AI-queryable function registry for enhanced AI-assisted development",
   "version": "0.1.0",
