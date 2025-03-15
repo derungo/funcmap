@@ -12,17 +12,28 @@ import {
 import {
   getFunctionData as getJsonFunctionData
 } from './storage/jsonStorage';
+import { ComposerIntegration } from './composerIntegration';
+import { IStorage } from './storage/storage';
 
 // Store the storage type that's actually in use
 export let activeStorageType: 'json' | 'sqlite' = 'json';
 
-// Function to update the storage type
+// Store the active storage implementation
+let activeStorage: IStorage;
+
+// @ai-link name=setActiveStorageType
+// @ai-depends on=logger.info
+// @ai-related activeStorageType
+// @ai-exec configuration,storage
 export function setActiveStorageType(type: 'json' | 'sqlite'): void {
   activeStorageType = type;
   logger.info(`Storage type set to: ${type}`);
 }
 
-// Create unified function interfaces that use the active storage type
+// @ai-link name=getFunctionData
+// @ai-depends on=getSqliteFunctionData,getJsonFunctionData,activeStorageType
+// @ai-related AITag
+// @ai-exec query,storage
 export async function getFunctionData(functionName: string): Promise<any> {
   if (activeStorageType === 'sqlite') {
     return getSqliteFunctionData(functionName);
@@ -31,36 +42,49 @@ export async function getFunctionData(functionName: string): Promise<any> {
   }
 }
 
+// @ai-link name=findDependentFunctions
+// @ai-depends on=findSqliteDependentFunctions,activeStorageType,vscode.window.showWarningMessage
+// @ai-related AITag
+// @ai-exec query,dependencies
 export async function findDependentFunctions(functionName: string): Promise<any[]> {
   if (activeStorageType === 'sqlite') {
     return findSqliteDependentFunctions(functionName);
   } else {
-    // Implement JSON-based fallback if needed or inform user about limitations
     vscode.window.showWarningMessage('Advanced function querying requires SQLite storage. Please check extension settings.');
     return [];
   }
 }
 
+// @ai-link name=findRelatedFunctions
+// @ai-depends on=findSqliteRelatedFunctions,activeStorageType,vscode.window.showWarningMessage
+// @ai-related AITag
+// @ai-exec query,related
 export async function findRelatedFunctions(moduleName: string): Promise<any[]> {
   if (activeStorageType === 'sqlite') {
     return findSqliteRelatedFunctions(moduleName);
   } else {
-    // Implement JSON-based fallback if needed or inform user about limitations
     vscode.window.showWarningMessage('Advanced function querying requires SQLite storage. Please check extension settings.');
     return [];
   }
 }
 
+// @ai-link name=findFunctionsByExecToken
+// @ai-depends on=findSqliteFunctionsByExecToken,activeStorageType,vscode.window.showWarningMessage
+// @ai-related AITag
+// @ai-exec query,tokens
 export async function findFunctionsByExecToken(token: string): Promise<any[]> {
   if (activeStorageType === 'sqlite') {
     return findSqliteFunctionsByExecToken(token);
   } else {
-    // Implement JSON-based fallback if needed or inform user about limitations
     vscode.window.showWarningMessage('Advanced function querying requires SQLite storage. Please check extension settings.');
     return [];
   }
 }
 
+// @ai-link name=activate
+// @ai-depends on=logger.setLogLevel,logger.info,logger.debug,logger.error,initializeDatabase,updateIndex,getConfiguration,setActiveStorageType,vscode.window.showWarningMessage,vscode.window.showErrorMessage
+// @ai-related vscode.ExtensionContext,LogLevel
+// @ai-exec extension,initialization
 export async function activate(context: vscode.ExtensionContext): Promise<void> {
   // Set log level to debug for development
   logger.setLogLevel(LogLevel.debug);
@@ -68,30 +92,40 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
   logger.info('Starting FuncMap activation...');
   
   try {
-    // Get the configured storage type
+    // Initialize storage based on configuration
     const config = getConfiguration();
-    const configuredStorageType = config.get<string>('storageType', 'json');
-    activeStorageType = configuredStorageType as 'json' | 'sqlite';
-    
-    // Initialize database if needed
-    if (activeStorageType === 'sqlite') {
-      logger.debug('Initializing database...');
-      try {
-        await initializeDatabase();
-        logger.info('SQLite database initialized successfully');
-      } catch (dbError) {
-        const errorMsg = `Failed to initialize SQLite database: ${dbError instanceof Error ? dbError.message : String(dbError)}`;
-        logger.error(errorMsg);
-        vscode.window.showWarningMessage(`${errorMsg}. Falling back to JSON storage.`);
-        
-        // Fall back to JSON storage
-        activeStorageType = 'json';
-        await config.update('storageType', 'json', vscode.ConfigurationTarget.Workspace);
-        logger.info('Switched to JSON storage due to SQLite initialization failure');
-      }
+    const storageType = config.get<'json' | 'sqlite'>('storageType', 'json');
+    setActiveStorageType(storageType);
+
+    // Initialize storage implementation
+    if (storageType === 'sqlite') {
+      await initializeDatabase();
+      activeStorage = {
+        getFunctionData: getSqliteFunctionData,
+        findDependentFunctions: findSqliteDependentFunctions,
+        findRelatedFunctions: findSqliteRelatedFunctions,
+        findFunctionsByExecToken: findSqliteFunctionsByExecToken,
+        searchFunctions: async (query: string) => [], // TODO: Implement search
+        getAllFunctions: async () => [], // TODO: Implement getAllFunctions
+        saveToStorage: async (tags) => {} // TODO: Implement save
+      };
+    } else {
+      activeStorage = {
+        getFunctionData: getJsonFunctionData,
+        findDependentFunctions: async () => [], // TODO: Implement for JSON storage
+        findRelatedFunctions: async () => [], // TODO: Implement for JSON storage
+        findFunctionsByExecToken: async () => [], // TODO: Implement for JSON storage
+        searchFunctions: async () => [], // TODO: Implement search
+        getAllFunctions: async () => [], // TODO: Implement getAllFunctions
+        saveToStorage: async (tags) => {} // TODO: Implement save
+      };
     }
     
     logger.debug('Registering commands...');
+    
+    // Initialize Composer integration
+    const composerIntegration = new ComposerIntegration(activeStorage);
+    global.funcmapForComposer = composerIntegration;
     
     // Register the update index command
     const updateIndexCommand = vscode.commands.registerCommand(
@@ -309,6 +343,10 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
   }
 }
 
+// @ai-link name=deactivate
+// @ai-depends on=logger.info
+// @ai-related vscode.ExtensionContext
+// @ai-exec extension,cleanup
 export function deactivate(): void {
   logger.info('FuncMap is deactivating');
 } 

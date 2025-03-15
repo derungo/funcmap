@@ -1,73 +1,69 @@
-# Changelog
+# Change Log
 
-## [0.3.0] - 2024-03-15
+All notable changes to the "funcmap" extension will be documented in this file.
+
+## [0.4.1] - 2024-03-21
 
 ### Added
-- **Graceful Fallback Mechanism**
-  - Added automatic fallback to JSON storage when SQLite initialization fails
-  - Improved error handling for storage type initialization
-  - Better user notifications for storage-related issues
+- Comprehensive documentation for Cursor Composer integration
+- Sample `.cursorrules` file in examples directory
+- `isReady()` function to check FuncMap availability
+- Best practices guide for using FuncMap with Cursor Composer
 
 ### Changed
-- Enhanced error reporting for native module failures
-- Improved package scripts for better installation experience
-- Added better error handling during initialization
-- Updated module structure for more resilient operation
+- Improved README with clearer installation instructions
+- Enhanced documentation structure and readability
+- Updated configuration examples with better explanations
 
 ### Fixed
-- Fixed NODE_MODULE_VERSION mismatch issue with better-sqlite3
-- Fixed incompatibility issues with newer Node.js versions
-- Fixed extension activation failures by adding graceful degradation
-- Improved error handling for better user experience
+- Type declarations in ComposerIntegration
+- Import paths in documentation examples
+- Configuration file formatting
 
-## [0.2.0] - 2024-03-XX
+## [0.4.0] - 2024-03-15
 
 ### Added
-- **Performance Benchmarking**
-  - Added comprehensive performance test suite
-  - Benchmarks for JSON vs SQLite storage
-  - Tests different sample sizes (10, 100, 1000, 5000 functions)
-  - Measures indexing time, query time, and file size
-  - Includes performance assertions for large datasets
-
-- **Input Sanitization**
-  - Added tag sanitizer utility
-  - Function name validation
-  - File path sanitization with directory traversal prevention
-  - Tag value validation
-  - Execution token validation
-  - Custom error handling for invalid inputs
-
-- **Progress Reporting**
-  - Added granular progress steps
-  - Progress percentage indicators
-  - Detailed progress messages
-  - User cancellation support
-  - Operation cleanup on cancellation
-
-- **Rate Limiting**
-  - Added debounce utility for file watching
-  - Configurable debounce time (default: 1 second)
-  - Prevents excessive updates during rapid file changes
-  - TypeScript type safety for debounced functions
+- Native integration with Cursor Composer through global `funcmapForComposer` object
+- New search functionality across all indexed functions
+- Ability to retrieve all indexed functions at once
+- Improved documentation with Cursor Composer integration guide
 
 ### Changed
-- Improved error handling with custom error types
-- Enhanced progress reporting in updateIndex command
-- Optimized file watching with rate limiting
-- Added TypeScript type safety improvements
+- Refactored storage implementations for better type safety
+- Enhanced SQLite query performance with optimized indexes
+- Updated README with Cursor Composer integration examples
 
 ### Fixed
-- Fixed concurrent update handling
-- Fixed directory traversal vulnerability in file paths
-- Fixed memory leaks in file watchers
-- Fixed error propagation in async operations
+- Type safety issues in storage implementations
+- Null handling in database operations
+- Documentation formatting and examples
 
-## [0.1.0] - Initial Release
+## [0.3.0] - 2024-03-14
 
 ### Added
-- Initial implementation of FuncMap extension
-- Basic function detection and parsing
-- JSON and SQLite storage options
-- File watching capabilities
-- Basic AI tag support (@ai-link, @ai-depends, @ai-related, @ai-exec) 
+- SQLite storage backend for improved performance
+- File watching capability for automatic index updates
+- Support for execution tokens with @ai-exec tag
+
+### Changed
+- Improved error handling and logging
+- Better TypeScript type definitions
+- Enhanced documentation
+
+## [0.2.0] - 2024-03-13
+
+### Added
+- JSON storage implementation
+- Basic function registry functionality
+- Support for @ai-link, @ai-depends, and @ai-related tags
+
+### Changed
+- Initial public release
+- Basic documentation
+
+## [0.1.0] - 2024-03-12
+
+### Added
+- Initial extension setup
+- Basic function parsing
+- Project structure and documentation 

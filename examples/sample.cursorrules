@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "name": "FuncMap Integration",
+  "description": "Configuration for integrating FuncMap with Cursor Composer",
+  "settings": {
+    "funcmap.watchFiles": true,
+    "funcmap.filePatterns": [
+      "**/*.js",
+      "**/*.ts",
+      "**/*.jsx",
+      "**/*.tsx"
+    ],
+    "funcmap.storageType": "json"
+  },
+  "rules": [
+    {
+      "name": "PreferFuncMapSearch",
+      "description": "Prefer using FuncMap's function registry over standard code search",
+      "priority": "high",
+      "when": "global.funcmapForComposer !== undefined && await global.funcmapForComposer.isReady()",
+      "do": [
+        {
+          "action": "use_funcmap_search",
+          "description": "Use FuncMap's search capabilities before standard search tools",
+          "steps": [
+            "Check if function exists using getFunctionData",
+            "Use searchFunctions for semantic search",
+            "Explore dependencies with findDependentFunctions",
+            "Find related modules using findRelatedFunctions",
+            "Search by execution token using findFunctionsByExecToken",
+            "Get complete registry using getAllFunctions"
+          ]
+        }
+      ]
+    }
+  ],
+  "search_strategy": {
+    "order": [
+      {
+        "name": "funcmap_registry",
+        "description": "Primary search using FuncMap's function registry",
+        "implementation": {
+          "type": "function",
+          "steps": [
+            "1. For exact matches: await global.funcmapForComposer.getFunctionData(name)",
+            "2. For semantic search: await global.funcmapForComposer.searchFunctions(query)",
+            "3. For dependencies: await global.funcmapForComposer.findDependentFunctions(name)",
+            "4. For related code: await global.funcmapForComposer.findRelatedFunctions(module)",
+            "5. For execution patterns: await global.funcmapForComposer.findFunctionsByExecToken(token)"
+          ]
+        }
+      },
+      {
+        "name": "fallback_search",
+        "description": "Fallback to standard search methods",
+        "implementation": {
+          "type": "fallback",
+          "tools": ["codebase_search", "grep_search", "file_search"]
+        }
+      }
+    ]
+  },
+  "examples": [
+    {
+      "task": "Find function implementation",
+      "query": "What does validateUserInput do?",
+      "solution": {
+        "code": "const func = await global.funcmapForComposer.getFunctionData('validateUserInput');",
+        "explanation": "Get direct function information from registry"
+      }
+    },
+    {
+      "task": "Find related functions",
+      "query": "What functions are related to user authentication?",
+      "solution": {
+        "code": "const funcs = await global.funcmapForComposer.searchFunctions('user authentication');",
+        "explanation": "Semantic search across function registry"
+      }
+    }
+  ],
+  "tags": {
+    "patterns": [
+      {
+        "name": "aiLink",
+        "pattern": "// @ai-link name={name}",
+        "description": "Link function to AI index"
+      },
+      {
+        "name": "aiDepends",
+        "pattern": "// @ai-depends on={dependencies}",
+        "description": "Specify function dependencies"
+      },
+      {
+        "name": "aiRelated",
+        "pattern": "// @ai-related {modules}",
+        "description": "Link to related modules"
+      },
+      {
+        "name": "aiExec",
+        "pattern": "// @ai-exec {tokens}",
+        "description": "Define execution tokens"
+      }
+    ]
+  }
+} 
