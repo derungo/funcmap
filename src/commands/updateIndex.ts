@@ -26,10 +26,10 @@ const FILE_WATCH_DEBOUNCE_MS = 1000; // 1 second debounce
 
 let extensionContext: vscode.ExtensionContext;
 
-// @ai-link name=updateAIIndex
-// @ai-depends on=parseAITags,saveToJson,saveToSQLite,getConfiguration
-// @ai-related vscode.ProgressLocation,logger
-// @ai-exec index,update
+// @ai-link name=updateIndex
+// @ai-depends on=parseFilesForAITags,saveToJson,saveToSqlite,getConfiguration,setActiveStorageType,logger.info,logger.error
+// @ai-related vscode.ProgressLocation,vscode.ExtensionContext
+// @ai-exec command,index,update
 export async function updateIndex(context: vscode.ExtensionContext): Promise<void> {
   extensionContext = context;
   try {
@@ -120,7 +120,10 @@ export async function updateIndex(context: vscode.ExtensionContext): Promise<voi
   }
 }
 
-// Create a wrapper function that doesn't need context
+// @ai-link name=updateIndexWrapper
+// @ai-depends on=updateIndex,extensionContext
+// @ai-related vscode.ExtensionContext
+// @ai-exec command,internal
 async function updateIndexWrapper(): Promise<void> {
   if (!extensionContext) {
     throw new Error('Extension context not initialized');
@@ -128,5 +131,8 @@ async function updateIndexWrapper(): Promise<void> {
   await updateIndex(extensionContext);
 }
 
-// Export the debounced version for file watching
+// @ai-link name=updateIndexWithRateLimit
+// @ai-depends on=updateIndexWrapper,debounce
+// @ai-related vscode.ExtensionContext
+// @ai-exec command,throttle,watch
 export const updateIndexWithRateLimit = debounce(updateIndexWrapper, FILE_WATCH_DEBOUNCE_MS); 

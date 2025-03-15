@@ -1,6 +1,9 @@
 import * as vscode from 'vscode';
 import { logger } from '../utils/logger';
 
+// @ai-link name=AITag
+// @ai-related vscode.Uri
+// @ai-exec types,core
 export interface AITag {
   filePath: string;
   functionName: string;
@@ -9,10 +12,10 @@ export interface AITag {
   execTokens: string[];
 }
 
-// @ai-link name=parseAITags
-// @ai-depends on=vscode.workspace.findFiles,vscode.workspace.openTextDocument
-// @ai-related AITag,logger
-// @ai-exec parse,index
+// @ai-link name=parseFilesForAITags
+// @ai-depends on=vscode.workspace.findFiles,vscode.workspace.openTextDocument,logger.debug,logger.info,logger.error
+// @ai-related AITag,vscode.TextDocument
+// @ai-exec parse,index,core
 export async function parseFilesForAITags(filePatterns: string[] = ['**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx']): Promise<AITag[]> {
   const tags: AITag[] = [];
   

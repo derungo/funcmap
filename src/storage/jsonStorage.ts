@@ -4,11 +4,18 @@ import * as path from 'path';
 import { AITag } from '../parser/aiTagParser';
 import { logger } from '../utils/logger';
 
+// @ai-link name=AIFunctionRegistry
+// @ai-related AITag
+// @ai-exec storage,types
 export interface AIFunctionRegistry {
   functions: AITag[];
   lastUpdated: string;
 }
 
+// @ai-link name=saveToJson
+// @ai-depends on=vscode.workspace.workspaceFolders,fs.promises.writeFile,logger.debug,logger.error,logger.info
+// @ai-related AIFunctionRegistry,AITag
+// @ai-exec storage,write,json
 export async function saveToJson(tags: AITag[]): Promise<void> {
   const workspaceFolders = vscode.workspace.workspaceFolders;
   if (!workspaceFolders) {
@@ -34,6 +41,10 @@ export async function saveToJson(tags: AITag[]): Promise<void> {
   logger.info(`AI function registry saved to ${registryPath} with ${tags.length} functions`);
 }
 
+// @ai-link name=loadFromJson
+// @ai-depends on=vscode.workspace.workspaceFolders,fs.promises.readFile,logger.debug,logger.warn,logger.info
+// @ai-related AIFunctionRegistry,AITag
+// @ai-exec storage,read,json
 export async function loadFromJson(): Promise<AIFunctionRegistry | null> {
   const workspaceFolders = vscode.workspace.workspaceFolders;
   if (!workspaceFolders) {
@@ -57,6 +68,10 @@ export async function loadFromJson(): Promise<AIFunctionRegistry | null> {
   }
 }
 
+// @ai-link name=getFunctionData
+// @ai-depends on=loadFromJson,logger.debug,logger.warn
+// @ai-related AIFunctionRegistry,AITag
+// @ai-exec storage,query,json
 export async function getFunctionData(functionName: string): Promise<AITag | null> {
   logger.debug(`Looking up function: ${functionName}`);
   

@@ -9,6 +9,9 @@ const VALID_PATH_REGEX = /^[a-zA-Z0-9_\-./]+$/;
 /**
  * Error thrown when tag sanitization fails
  */
+// @ai-link name=TagSanitizationError
+// @ai-related Error
+// @ai-exec error,security
 export class TagSanitizationError extends Error {
   constructor(message: string) {
     super(message);
@@ -20,6 +23,10 @@ export class TagSanitizationError extends Error {
  * Sanitizes a function name to ensure it's a valid identifier
  * @throws {TagSanitizationError} If the name is invalid
  */
+// @ai-link name=sanitizeFunctionName
+// @ai-depends on=TagSanitizationError,VALID_NAME_REGEX
+// @ai-related sanitizeAITag
+// @ai-exec security,validation
 export function sanitizeFunctionName(name: string): string {
   if (!name || typeof name !== 'string') {
     throw new TagSanitizationError('Function name must be a non-empty string');
@@ -38,6 +45,10 @@ export function sanitizeFunctionName(name: string): string {
  * Sanitizes a file path to prevent directory traversal
  * @throws {TagSanitizationError} If the path is invalid
  */
+// @ai-link name=sanitizeFilePath
+// @ai-depends on=TagSanitizationError,VALID_PATH_REGEX
+// @ai-related sanitizeAITag
+// @ai-exec security,validation,filesystem
 export function sanitizeFilePath(path: string): string {
   if (!path || typeof path !== 'string') {
     throw new TagSanitizationError('File path must be a non-empty string');
@@ -56,6 +67,10 @@ export function sanitizeFilePath(path: string): string {
  * Sanitizes a comma-separated list of values
  * @throws {TagSanitizationError} If any value is invalid
  */
+// @ai-link name=sanitizeTagList
+// @ai-depends on=TagSanitizationError,VALID_NAME_REGEX
+// @ai-related sanitizeAITag
+// @ai-exec security,validation
 export function sanitizeTagList(list: string): string[] {
   if (!list || typeof list !== 'string') {
     return [];
@@ -79,6 +94,10 @@ export function sanitizeTagList(list: string): string[] {
  * Sanitizes execution tokens
  * @throws {TagSanitizationError} If any token is invalid
  */
+// @ai-link name=sanitizeExecTokens
+// @ai-depends on=TagSanitizationError
+// @ai-related sanitizeAITag
+// @ai-exec security,validation,tokens
 export function sanitizeExecTokens(tokens: string): string[] {
   if (!tokens || typeof tokens !== 'string') {
     return [];
@@ -105,6 +124,10 @@ export function sanitizeExecTokens(tokens: string): string[] {
  * Sanitizes all tag values in an AITag object
  * @throws {TagSanitizationError} If any value is invalid
  */
+// @ai-link name=sanitizeAITag
+// @ai-depends on=sanitizeFunctionName,sanitizeFilePath,sanitizeTagList,sanitizeExecTokens
+// @ai-related TagSanitizationError
+// @ai-exec security,validation,main
 export function sanitizeAITag(tag: {
   filePath: string;
   functionName: string;

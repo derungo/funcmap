@@ -5,30 +5,47 @@ import Database from 'better-sqlite3';
 import { AITag } from '../parser/aiTagParser';
 import { logger } from '../utils/logger';
 
+// @ai-link name=AIFunctionRegistry
+// @ai-related AITag
+// @ai-exec storage,types
 export interface AIFunctionRegistry {
   functions: AITag[];
   lastUpdated: string;
 }
 
-// Define interfaces for database rows
+// @ai-link name=FunctionRow
+// @ai-related AITag
+// @ai-exec storage,types,database
 interface FunctionRow {
   id: number;
   filePath: string;
   functionName: string;
 }
 
+// @ai-link name=DependencyRow
+// @ai-related FunctionRow
+// @ai-exec storage,types,database
 interface DependencyRow {
   dependsOn: string;
 }
 
+// @ai-link name=RelatedRow
+// @ai-related FunctionRow
+// @ai-exec storage,types,database
 interface RelatedRow {
   relatedTo: string;
 }
 
+// @ai-link name=ExecTokenRow
+// @ai-related FunctionRow
+// @ai-exec storage,types,database
 interface ExecTokenRow {
   token: string;
 }
 
+// @ai-link name=MetadataRow
+// @ai-related AIFunctionRegistry
+// @ai-exec storage,types,database
 interface MetadataRow {
   value: string;
 }
@@ -38,6 +55,10 @@ let db: Database.Database | null = null;
 /**
  * Initialize the SQLite database
  */
+// @ai-link name=initializeDatabase
+// @ai-depends on=vscode.workspace.workspaceFolders,fs.mkdirSync,Database,logger.debug,logger.error,logger.info
+// @ai-related Database.Database
+// @ai-exec storage,database,initialization
 export async function initializeDatabase(): Promise<void> {
   try {
     const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -114,10 +135,10 @@ export async function initializeDatabase(): Promise<void> {
 /**
  * Save AI tags to SQLite database
  */
-// @ai-link name=saveToSQLite
-// @ai-depends on=initializeDatabase,parseAITags
-// @ai-related AITag,Database
-// @ai-exec storage,database
+// @ai-link name=saveToSqlite
+// @ai-depends on=initializeDatabase,db.prepare,db.exec,logger.debug,logger.error,logger.info
+// @ai-related AITag,Database.Database
+// @ai-exec storage,database,write
 export async function saveToSqlite(tags: AITag[]): Promise<void> {
   try {
     if (!db) {
@@ -192,6 +213,10 @@ export async function saveToSqlite(tags: AITag[]): Promise<void> {
 /**
  * Load AI tags from SQLite database
  */
+// @ai-link name=loadFromSqlite
+// @ai-depends on=initializeDatabase,db.prepare,logger.debug,logger.error,logger.info
+// @ai-related AIFunctionRegistry,AITag,Database.Database
+// @ai-exec storage,database,read
 export async function loadFromSqlite(): Promise<AIFunctionRegistry | null> {
   try {
     if (!db) {
@@ -246,6 +271,10 @@ export async function loadFromSqlite(): Promise<AIFunctionRegistry | null> {
 /**
  * Get function data by name from SQLite database
  */
+// @ai-link name=getFunctionDataFromSqlite
+// @ai-depends on=initializeDatabase,db.prepare,logger.debug,logger.error
+// @ai-related AITag,Database.Database
+// @ai-exec storage,database,query
 export async function getFunctionDataFromSqlite(functionName: string): Promise<AITag | null> {
   try {
     if (!db) {
@@ -289,6 +318,10 @@ export async function getFunctionDataFromSqlite(functionName: string): Promise<A
 /**
  * Find functions that depend on a specific function
  */
+// @ai-link name=findDependentFunctions
+// @ai-depends on=initializeDatabase,db.prepare,logger.debug,logger.error
+// @ai-related AITag,Database.Database
+// @ai-exec storage,database,query,dependencies
 export async function findDependentFunctions(functionName: string): Promise<AITag[]> {
   try {
     if (!db) {
@@ -338,6 +371,10 @@ export async function findDependentFunctions(functionName: string): Promise<AITa
 /**
  * Find functions related to a specific module
  */
+// @ai-link name=findRelatedFunctions
+// @ai-depends on=initializeDatabase,db.prepare,logger.debug,logger.error
+// @ai-related AITag,Database.Database
+// @ai-exec storage,database,query,related
 export async function findRelatedFunctions(moduleName: string): Promise<AITag[]> {
   try {
     if (!db) {
@@ -387,6 +424,10 @@ export async function findRelatedFunctions(moduleName: string): Promise<AITag[]>
 /**
  * Find functions with a specific execution token
  */
+// @ai-link name=findFunctionsByExecToken
+// @ai-depends on=initializeDatabase,db.prepare,logger.debug,logger.error
+// @ai-related AITag,Database.Database
+// @ai-exec storage,database,query,tokens
 export async function findFunctionsByExecToken(token: string): Promise<AITag[]> {
   try {
     if (!db) {
@@ -434,8 +475,12 @@ export async function findFunctionsByExecToken(token: string): Promise<AITag[]> 
 }
 
 /**
- * Get data for a specific function
+ * Get function data by name (wrapper function)
  */
+// @ai-link name=getFunctionData
+// @ai-depends on=getFunctionDataFromSqlite,logger.debug,logger.error
+// @ai-related AITag
+// @ai-exec storage,database,query,wrapper
 export async function getFunctionData(functionName: string): Promise<AITag | null> {
   try {
     if (!db) {
@@ -484,6 +529,10 @@ export async function getFunctionData(functionName: string): Promise<AITag | nul
 /**
  * Close the database connection
  */
+// @ai-link name=closeDatabase
+// @ai-depends on=db.close,logger.debug
+// @ai-related Database.Database
+// @ai-exec storage,database,cleanup
 export function closeDatabase(): void {
   if (db) {
     db.close();

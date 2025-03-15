@@ -7,35 +7,64 @@ export enum LogLevel {
   error = 3
 }
 
+// @ai-link name=Logger
+// @ai-related LogLevel,vscode.OutputChannel
+// @ai-exec logging,diagnostics
 class Logger {
   private _outputChannel: vscode.OutputChannel;
   private _logLevel: LogLevel;
 
+  // @ai-link name=LoggerConstructor
+  // @ai-depends on=vscode.window.createOutputChannel
+  // @ai-related Logger,LogLevel
   constructor() {
     this._outputChannel = vscode.window.createOutputChannel('FuncMap');
     this._logLevel = LogLevel.info;
   }
 
+  // @ai-link name=logDebug
+  // @ai-depends on=_log
+  // @ai-related LogLevel
+  // @ai-exec logging,debug
   debug(message: string, ...args: any[]): void {
     this._log(LogLevel.debug, message, ...args);
   }
 
+  // @ai-link name=logInfo
+  // @ai-depends on=_log
+  // @ai-related LogLevel
+  // @ai-exec logging,info
   info(message: string, ...args: any[]): void {
     this._log(LogLevel.info, message, ...args);
   }
 
+  // @ai-link name=logWarn
+  // @ai-depends on=_log
+  // @ai-related LogLevel
+  // @ai-exec logging,warning
   warn(message: string, ...args: any[]): void {
     this._log(LogLevel.warn, message, ...args);
   }
 
+  // @ai-link name=logError
+  // @ai-depends on=_log
+  // @ai-related LogLevel
+  // @ai-exec logging,error
   error(message: string, ...args: any[]): void {
     this._log(LogLevel.error, message, ...args);
   }
 
+  // @ai-link name=setLogLevel
+  // @ai-related LogLevel
+  // @ai-exec logging,configuration
   setLogLevel(level: LogLevel): void {
     this._logLevel = level;
   }
 
+  // @ai-link name=_log
+  // @ai-depends on=LogLevel,_outputChannel.appendLine,_outputChannel.show
+  // @ai-related Logger
+  // @ai-exec logging,internal
   private _log(level: LogLevel, message: string, ...args: any[]): void {
     if (level < this._logLevel) {
       return;
