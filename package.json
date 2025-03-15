@@ -3,6 +3,12 @@
   "displayName": "AI Contextual Linking & Execution System",
   "description": "Create a pre-indexed, AI-queryable function registry for enhanced AI-assisted development",
   "version": "0.1.0",
+  "publisher": "derungo",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/derungo/funcmap.git"
+  },
   "engines": {
     "vscode": "^1.60.0"
   },
@@ -10,6 +16,13 @@
     "Other",
     "Programming Languages",
     "Machine Learning"
+  ],
+  "keywords": [
+    "ai",
+    "function",
+    "mapping",
+    "dependencies",
+    "contextual"
   ],
   "activationEvents": [
     "onCommand:aiContextualLinking.updateIndex",
@@ -74,7 +87,9 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.12",
