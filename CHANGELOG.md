@@ -2,6 +2,24 @@
 
 All notable changes to the "funcmap" extension will be documented in this file.
 
+## [0.4.1] - 2024-03-21
+
+### Added
+- Comprehensive documentation for Cursor Composer integration
+- Sample `.cursorrules` file in examples directory
+- `isReady()` function to check FuncMap availability
+- Best practices guide for using FuncMap with Cursor Composer
+
+### Changed
+- Improved README with clearer installation instructions
+- Enhanced documentation structure and readability
+- Updated configuration examples with better explanations
+
+### Fixed
+- Type declarations in ComposerIntegration
+- Import paths in documentation examples
+- Configuration file formatting
+
 ## [0.4.0] - 2024-03-15
 
 ### Added

@@ -121,5 +121,82 @@
       "  // Implementation",
       "}"
     ]
+  },
+  "rules": [
+    {
+      "name": "FuncMap Integration",
+      "description": "Use FuncMap's function registry for code exploration",
+      "priority": "high",
+      "when": "global.funcmapForComposer !== undefined",
+      "do": [
+        {
+          "action": "prefer_funcmap",
+          "description": "When exploring or searching for functions, prefer using FuncMap's registry over standard code search",
+          "steps": [
+            "Before using codebase_search or grep_search, try using FuncMap's functions through global.funcmapForComposer",
+            "When looking for function dependencies, use findDependentFunctions instead of searching manually",
+            "When exploring module relationships, use findRelatedFunctions instead of pattern matching",
+            "When searching for specific functionality, use searchFunctions for semantic search",
+            "When needing a complete view of available functions, use getAllFunctions"
+          ]
+        }
+      ]
+    }
+  ],
+  "search_strategy": {
+    "order": [
+      {
+        "name": "funcmap_search",
+        "description": "Search using FuncMap's function registry",
+        "implementation": {
+          "type": "function",
+          "steps": [
+            "1. For exact function queries: await global.funcmapForComposer.getFunctionData(functionName)",
+            "2. For dependency exploration: await global.funcmapForComposer.findDependentFunctions(functionName)",
+            "3. For module relationships: await global.funcmapForComposer.findRelatedFunctions(moduleName)",
+            "4. For execution patterns: await global.funcmapForComposer.findFunctionsByExecToken(token)",
+            "5. For general search: await global.funcmapForComposer.searchFunctions(query)",
+            "6. For complete exploration: await global.funcmapForComposer.getAllFunctions()"
+          ]
+        }
+      },
+      {
+        "name": "standard_search",
+        "description": "Fall back to standard code search methods if FuncMap search yields no results",
+        "implementation": {
+          "type": "fallback",
+          "tools": ["codebase_search", "grep_search", "file_search"]
+        }
+      }
+    ]
+  },
+  "examples": [
+    {
+      "task": "Find all functions that depend on 'validateUser'",
+      "solution": {
+        "code": "const dependents = await global.funcmapForComposer.findDependentFunctions('validateUser');",
+        "explanation": "Use FuncMap's findDependentFunctions instead of grep or semantic search"
+      }
+    },
+    {
+      "task": "Find functions related to the UserModel module",
+      "solution": {
+        "code": "const related = await global.funcmapForComposer.findRelatedFunctions('UserModel');",
+        "explanation": "Use FuncMap's findRelatedFunctions to discover module relationships"
+      }
+    },
+    {
+      "task": "Search for functions handling user data",
+      "solution": {
+        "code": "const results = await global.funcmapForComposer.searchFunctions('user');",
+        "explanation": "Use FuncMap's searchFunctions for semantic search across the function registry"
+      }
+    }
+  ],
+  "prompts": {
+    "function_search": "Before using standard code search tools, check if the function exists in FuncMap's registry using getFunctionData or searchFunctions.",
+    "dependency_analysis": "When analyzing dependencies, start with findDependentFunctions to get a pre-indexed view of function relationships.",
+    "module_exploration": "For module-related queries, use findRelatedFunctions to discover function associations.",
+    "execution_patterns": "When looking for specific execution patterns, use findFunctionsByExecToken to find similarly tagged functions."
   }
 } 

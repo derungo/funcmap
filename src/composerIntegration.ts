@@ -1,5 +1,5 @@
 import { IStorage } from './storage/storage';
-import { AITag } from './parser/aiTags';
+import { AITag } from './parser/aiTagParser';
 
 export interface IComposerIntegration {
     getFunctionData(functionName: string): Promise<AITag | null>;
@@ -8,6 +8,7 @@ export interface IComposerIntegration {
     findFunctionsByExecToken(token: string): Promise<AITag[]>;
     searchFunctions(query: string): Promise<AITag[]>;
     getAllFunctions(): Promise<AITag[]>;
+    isReady(): Promise<boolean>;
 }
 
 export class ComposerIntegration implements IComposerIntegration {
@@ -35,6 +36,15 @@ export class ComposerIntegration implements IComposerIntegration {
 
     async getAllFunctions(): Promise<AITag[]> {
         return await this.storage.getAllFunctions();
+    }
+
+    async isReady(): Promise<boolean> {
+        try {
+            const functions = await this.getAllFunctions();
+            return Array.isArray(functions);
+        } catch (error) {
+            return false;
+        }
     }
 }
 
