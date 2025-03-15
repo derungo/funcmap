@@ -2,7 +2,7 @@
   "name": "funcmap",
   "displayName": "FuncMap",
   "description": "AI-queryable function registry for enhanced development",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publisher": "derungo",
   "icon": "images/icon.png",
   "repository": {

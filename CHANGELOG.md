@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.3.0] - 2024-03-15
+
+### Added
+- **Graceful Fallback Mechanism**
+  - Added automatic fallback to JSON storage when SQLite initialization fails
+  - Improved error handling for storage type initialization
+  - Better user notifications for storage-related issues
+
+### Changed
+- Enhanced error reporting for native module failures
+- Improved package scripts for better installation experience
+- Added better error handling during initialization
+- Updated module structure for more resilient operation
+
+### Fixed
+- Fixed NODE_MODULE_VERSION mismatch issue with better-sqlite3
+- Fixed incompatibility issues with newer Node.js versions
+- Fixed extension activation failures by adding graceful degradation
+- Improved error handling for better user experience
+
 ## [0.2.0] - 2024-03-XX
 
 ### Added
