@@ -1,8 +1,8 @@
 {
   "name": "funcmap",
-  "displayName": "AI Contextual Linking & Execution System",
-  "description": "Create a pre-indexed, AI-queryable function registry for enhanced AI-assisted development",
-  "version": "0.1.0",
+  "displayName": "FuncMap",
+  "description": "AI-queryable function registry for enhanced development",
+  "version": "0.2.0",
   "publisher": "derungo",
   "icon": "images/icon.png",
   "repository": {
@@ -25,42 +25,42 @@
     "contextual"
   ],
   "activationEvents": [
-    "onCommand:aiContextualLinking.updateIndex",
+    "onCommand:funcmap.updateIndex",
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "aiContextualLinking.updateIndex",
-        "title": "AI Contextual Linking: Update Index"
+        "command": "funcmap.updateIndex",
+        "title": "FuncMap: Update Index"
       },
       {
-        "command": "aiContextualLinking.getFunctionData",
-        "title": "AI Contextual Linking: Get Function Data"
+        "command": "funcmap.getFunctionData",
+        "title": "FuncMap: Get Function Data"
       },
       {
-        "command": "aiContextualLinking.findDependentFunctions",
-        "title": "AI Contextual Linking: Find Dependent Functions"
+        "command": "funcmap.findDependentFunctions",
+        "title": "FuncMap: Find Dependent Functions"
       },
       {
-        "command": "aiContextualLinking.findRelatedFunctions",
-        "title": "AI Contextual Linking: Find Related Functions"
+        "command": "funcmap.findRelatedFunctions",
+        "title": "FuncMap: Find Related Functions"
       },
       {
-        "command": "aiContextualLinking.findFunctionsByExecToken",
-        "title": "AI Contextual Linking: Find Functions By Execution Token"
+        "command": "funcmap.findFunctionsByExecToken",
+        "title": "FuncMap: Find Functions By Execution Token"
       }
     ],
     "configuration": {
-      "title": "AI Contextual Linking",
+      "title": "FuncMap",
       "properties": {
-        "aiContextualLinking.watchFiles": {
+        "funcmap.watchFiles": {
           "type": "boolean",
           "default": true,
-          "description": "Watch files for changes and update index automatically"
+          "description": "Enable or disable automatic file watching for index updates"
         },
-        "aiContextualLinking.filePatterns": {
+        "funcmap.filePatterns": {
           "type": "array",
           "default": [
             "**/*.js",
@@ -68,15 +68,15 @@
             "**/*.jsx",
             "**/*.tsx"
           ],
-          "description": "File patterns to include in scanning"
+          "description": "File patterns to include in the index scan"
         },
-        "aiContextualLinking.storageType": {
+        "funcmap.storageType": {
           "type": "string",
+          "default": "json",
           "enum": [
             "json",
             "sqlite"
           ],
-          "default": "json",
           "description": "Storage type for the function registry (json or sqlite)"
         }
       }
@@ -86,27 +86,28 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
     "test": "node ./src/test/runTest.js",
     "package": "vsce package",
     "publish": "vsce publish"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.12",
-    "@types/glob": "^7.1.3",
-    "@types/mocha": "^8.2.2",
-    "@types/node": "14.x",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.24",
     "@types/vscode": "^1.60.0",
-    "@typescript-eslint/eslint-plugin": "^4.26.0",
-    "@typescript-eslint/parser": "^4.26.0",
-    "eslint": "^7.27.0",
-    "glob": "^7.1.7",
-    "mocha": "^8.4.0",
-    "typescript": "^4.3.2",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "@vscode/vsce": "^3.2.2",
+    "eslint": "^8.57.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.3.0",
+    "typescript": "^5.3.3",
     "vscode-test": "^1.5.2"
   },
   "dependencies": {
-    "better-sqlite3": "^11.9.0",
-    "sqlite3": "^5.1.7"
+    "better-sqlite3": "^11.9.0"
   }
 }
