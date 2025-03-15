@@ -1,61 +1,66 @@
 import * as vscode from 'vscode';
 
-export enum LogLevel {
-  DEBUG = 0,
-  INFO = 1,
-  WARN = 2,
-  ERROR = 3
+enum LogLevel {
+  debug = 0,
+  info = 1,
+  warn = 2,
+  error = 3
 }
 
 class Logger {
-  private outputChannel: vscode.OutputChannel;
-  private logLevel: LogLevel;
+  private _outputChannel: vscode.OutputChannel;
+  private _logLevel: LogLevel;
 
   constructor() {
-    this.outputChannel = vscode.window.createOutputChannel('AI Contextual Linking');
-    this.logLevel = LogLevel.INFO; // Default log level
+    this._outputChannel = vscode.window.createOutputChannel('FuncMap');
+    this._logLevel = LogLevel.info;
+  }
+
+  debug(message: string, ...args: any[]): void {
+    this._log(LogLevel.debug, message, ...args);
+  }
+
+  info(message: string, ...args: any[]): void {
+    this._log(LogLevel.info, message, ...args);
+  }
+
+  warn(message: string, ...args: any[]): void {
+    this._log(LogLevel.warn, message, ...args);
+  }
+
+  error(message: string, ...args: any[]): void {
+    this._log(LogLevel.error, message, ...args);
   }
 
   setLogLevel(level: LogLevel): void {
-    this.logLevel = level;
+    this._logLevel = level;
   }
 
-  debug(message: string): void {
-    if (this.logLevel <= LogLevel.DEBUG) {
-      this.log('DEBUG', message);
+  private _log(level: LogLevel, message: string, ...args: any[]): void {
+    if (level < this._logLevel) {
+      return;
     }
-  }
 
-  info(message: string): void {
-    if (this.logLevel <= LogLevel.INFO) {
-      this.log('INFO', message);
-    }
-  }
-
-  warn(message: string): void {
-    if (this.logLevel <= LogLevel.WARN) {
-      this.log('WARN', message);
-    }
-  }
-
-  error(message: string, error?: Error): void {
-    if (this.logLevel <= LogLevel.ERROR) {
-      this.log('ERROR', message);
-      if (error) {
-        this.log('ERROR', error.stack || error.toString());
-      }
-    }
-  }
-
-  private log(level: string, message: string): void {
     const timestamp = new Date().toISOString();
-    this.outputChannel.appendLine(`[${timestamp}] [${level}] ${message}`);
-  }
+    const levelStr = LogLevel[level].toUpperCase();
+    let logMessage = `[${timestamp}] [${levelStr}] ${message}`;
 
-  show(): void {
-    this.outputChannel.show();
+    if (args.length > 0) {
+      args.forEach(arg => {
+        if (arg instanceof Error) {
+          logMessage += `\n${arg.stack || arg.message}`;
+        } else {
+          logMessage += `\n${JSON.stringify(arg, null, 2)}`;
+        }
+      });
+    }
+
+    this._outputChannel.appendLine(logMessage);
+
+    if (level >= LogLevel.error) {
+      this._outputChannel.show();
+    }
   }
 }
 
-// Export a singleton instance
 export const logger = new Logger(); 

@@ -13,12 +13,8 @@ export interface AITag {
 // @ai-depends on=vscode.workspace.findFiles,vscode.workspace.openTextDocument
 // @ai-related AITag,logger
 // @ai-exec parse,index
-export async function parseFilesForAITags(): Promise<AITag[]> {
+export async function parseFilesForAITags(filePatterns: string[] = ['**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx']): Promise<AITag[]> {
   const tags: AITag[] = [];
-  
-  // Get all files matching patterns from configuration
-  const config = vscode.workspace.getConfiguration('aiContextualLinking');
-  const filePatterns = config.get<string[]>('filePatterns', ['**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx']);
   
   logger.debug(`Using file patterns: ${filePatterns.join(', ')}`);
   

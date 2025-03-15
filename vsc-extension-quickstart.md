@@ -1,8 +1,8 @@
-# AI Contextual Linking & Execution System - Extension Quick Start
+# FuncMap - Extension Quick Start
 
 ## What's in the folder
 
-* This folder contains all of the files necessary for the AI Contextual Linking & Execution System extension.
+* This folder contains all of the files necessary for the FuncMap extension.
 * `package.json` - this is the manifest file that defines the extension's metadata and activation events.
 * `src/extension.ts` - this is the main file where the extension code is registered.
 * The `src` folder contains all the TypeScript source code for the extension.
@@ -10,7 +10,7 @@
 ## Get up and running straight away
 
 * Press `F5` to open a new window with your extension loaded.
-* Run the command "AI Contextual Linking: Update Index" from the Command Palette (Ctrl+Shift+P).
+* Run the command "FuncMap: Update Index" from the Command Palette (Ctrl+Shift+P).
 * Add AI tags to your functions (see below for examples).
 * Use the extension commands to query the function registry.
 
@@ -45,17 +45,17 @@ async function fetchUserData(userId) {
 
 This extension contributes the following settings:
 
-* `aiContextualLinking.watchFiles`: Enable or disable automatic file watching for index updates. Defaults to `true`.
-* `aiContextualLinking.filePatterns`: Define file patterns to include in the index scan. Defaults to `["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"]`.
-* `aiContextualLinking.storageType`: Storage type for the function registry (json or sqlite). Defaults to `json`.
+* `funcmap.watchFiles`: Enable or disable automatic file watching for index updates. Defaults to `true`.
+* `funcmap.filePatterns`: Define file patterns to include in the index scan. Defaults to `["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"]`.
+* `funcmap.storageType`: Storage type for the function registry (json or sqlite). Defaults to `json`.
 
 ## Extension Commands
 
-* `AI Contextual Linking: Update Index`: Manually triggers the update of the AI function registry.
-* `AI Contextual Linking: Get Function Data`: Gets data for a specific function.
-* `AI Contextual Linking: Find Dependent Functions`: Finds functions that depend on a specific function.
-* `AI Contextual Linking: Find Related Functions`: Finds functions related to a specific module.
-* `AI Contextual Linking: Find Functions By Execution Token`: Finds functions with a specific execution token.
+* `FuncMap: Update Index`: Manually triggers the update of the function registry.
+* `FuncMap: Get Function Data`: Gets data for a specific function.
+* `FuncMap: Find Dependent Functions`: Finds functions that depend on a specific function.
+* `FuncMap: Find Related Functions`: Finds functions related to a specific module.
+* `FuncMap: Find Functions By Execution Token`: Finds functions with a specific execution token.
 
 ## For more information
 

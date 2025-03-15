@@ -26,6 +26,10 @@
   ],
   "activationEvents": [
     "onCommand:funcmap.updateIndex",
+    "onCommand:funcmap.getFunctionData",
+    "onCommand:funcmap.findDependentFunctions",
+    "onCommand:funcmap.findRelatedFunctions",
+    "onCommand:funcmap.findFunctionsByExecToken",
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
@@ -33,23 +37,28 @@
     "commands": [
       {
         "command": "funcmap.updateIndex",
-        "title": "FuncMap: Update Index"
+        "title": "FuncMap: Update Index",
+        "category": "FuncMap"
       },
       {
         "command": "funcmap.getFunctionData",
-        "title": "FuncMap: Get Function Data"
+        "title": "FuncMap: Get Function Data",
+        "category": "FuncMap"
       },
       {
         "command": "funcmap.findDependentFunctions",
-        "title": "FuncMap: Find Dependent Functions"
+        "title": "FuncMap: Find Dependent Functions",
+        "category": "FuncMap"
       },
       {
         "command": "funcmap.findRelatedFunctions",
-        "title": "FuncMap: Find Related Functions"
+        "title": "FuncMap: Find Related Functions",
+        "category": "FuncMap"
       },
       {
         "command": "funcmap.findFunctionsByExecToken",
-        "title": "FuncMap: Find Functions By Execution Token"
+        "title": "FuncMap: Find Functions By Execution Token",
+        "category": "FuncMap"
       }
     ],
     "configuration": {
