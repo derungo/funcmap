@@ -36,7 +36,7 @@ Download the [latest release](https://github.com/derungo/funcmap/releases) and i
 
 Alternatively, install from command line:
 ```bash
-code --install-extension funcmap-0.1.0.vsix
+code --install-extension funcmap-0.3.0.vsix
 ```
 
 #### From Source
