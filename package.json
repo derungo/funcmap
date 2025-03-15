@@ -2,7 +2,7 @@
   "name": "funcmap",
   "displayName": "FuncMap",
   "description": "AI-queryable function registry for enhanced development",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publisher": "derungo",
   "icon": "images/icon.png",
   "repository": {
@@ -33,6 +33,11 @@
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
+  "vsce": {
+    "dependencies": true,
+    "useYarn": false,
+    "packagePath": null
+  },
   "contributes": {
     "commands": [
       {
@@ -98,8 +103,10 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./src/test/runTest.js",
-    "package": "vsce package",
-    "publish": "vsce publish"
+    "package": "npm run compile && npm rebuild better-sqlite3 --build-from-source && vsce package",
+    "publish": "vsce publish",
+    "postinstall": "node -e \"try { console.log('Rebuilding better-sqlite3...'); require('child_process').execSync('npm rebuild better-sqlite3 --build-from-source', {stdio: 'inherit'}); console.log('Rebuilding complete.'); } catch(e) { console.error('Rebuilding failed, but continuing with JSON storage fallback:', e.message); }\"",
+    "rebuild": "node -e \"try { console.log('Rebuilding better-sqlite3...'); require('child_process').execSync('npm rebuild better-sqlite3 --build-from-source', {stdio: 'inherit'}); console.log('Rebuilding complete.'); } catch(e) { console.error('Rebuilding failed, but continuing with JSON storage fallback:', e.message); }\""
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.12",
@@ -117,6 +124,8 @@
     "vscode-test": "^1.5.2"
   },
   "dependencies": {
-    "better-sqlite3": "^11.9.0"
+    "better-sqlite3": "^11.9.0",
+    "bindings": "^1.5.0",
+    "file-uri-to-path": "^1.0.0"
   }
 }

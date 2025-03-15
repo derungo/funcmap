@@ -6,6 +6,9 @@ import { logger } from '../utils/logger';
 import { getConfiguration } from '../utils/config';
 import { debounce } from '../utils/debounce';
 
+// Access the active storage type from the extension
+import { activeStorageType, setActiveStorageType } from '../extension';
+
 // Constants for progress reporting
 const progressSteps = {
   init: { increment: 0, message: 'Initializing...' },
@@ -62,19 +65,36 @@ export async function updateIndex(context: vscode.ExtensionContext): Promise<voi
         message: `Analyzing ${tags.length} functions...`
       });
       
-      // Get storage type and save
-      const storageType = config.get<string>('funcmap.storageType', 'json');
-      
+      // Get the active storage type and save data
       if (token.isCancellationRequested) {
         throw new Error('Operation cancelled by user');
       }
       
-      if (storageType === 'sqlite') {
-        progress.report(progressSteps.savingSqlite);
-        await saveToSqlite(tags);
-      } else {
-        progress.report(progressSteps.savingJson);
-        await saveToJson(tags);
+      try {
+        if (activeStorageType === 'sqlite') {
+          progress.report(progressSteps.savingSqlite);
+          await saveToSqlite(tags);
+          logger.info(`Saved ${tags.length} functions to SQLite database`);
+        } else {
+          progress.report(progressSteps.savingJson);
+          await saveToJson(tags);
+          logger.info(`Saved ${tags.length} functions to JSON file`);
+        }
+      } catch (saveError) {
+        // If saving to SQLite fails, try JSON as a fallback
+        if (activeStorageType === 'sqlite') {
+          logger.error(`Failed to save to SQLite: ${saveError instanceof Error ? saveError.message : String(saveError)}`);
+          logger.info('Falling back to JSON storage');
+          progress.report(progressSteps.savingJson);
+          await saveToJson(tags);
+          
+          // Update the global storage type
+          setActiveStorageType('json');
+          await config.update('storageType', 'json', vscode.ConfigurationTarget.Workspace);
+        } else {
+          // If JSON also fails, re-throw the error
+          throw saveError;
+        }
       }
       
       // Cleanup
