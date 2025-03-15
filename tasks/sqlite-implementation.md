@@ -1,8 +1,8 @@
-# SQLite Implementation for AI Contextual Linking
+# SQLite Implementation for FuncMap
 
 ## Overview
 
-This document outlines the implementation of SQLite storage for the AI Contextual Linking & Execution System. The SQLite storage option provides better performance for large codebases compared to the JSON storage option.
+This document outlines the implementation of SQLite storage for the FuncMap extension. The SQLite storage option provides better performance for large codebases compared to the JSON storage option.
 
 ## Implementation Details
 
@@ -47,15 +47,15 @@ SQLite storage offers several performance advantages over JSON storage:
 
 ## Usage
 
-To use SQLite storage, set the `aiContextualLinking.storageType` configuration option to `sqlite`:
+To use SQLite storage, set the `funcmap.storageType` configuration option to `sqlite`:
 
 ```json
 {
-  "aiContextualLinking.storageType": "sqlite"
+  "funcmap.storageType": "sqlite"
 }
 ```
 
-The extension will automatically create and manage the SQLite database file (`ai-links.db`) in the workspace root.
+The extension will automatically create and manage the SQLite database file (`funcmap.db`) in the workspace root.
 
 ## Future Enhancements
 

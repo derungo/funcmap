@@ -434,6 +434,54 @@ export async function findFunctionsByExecToken(token: string): Promise<AITag[]> 
 }
 
 /**
+ * Get data for a specific function
+ */
+export async function getFunctionData(functionName: string): Promise<AITag | null> {
+  try {
+    if (!db) {
+      await initializeDatabase();
+    }
+    
+    if (!db) {
+      return null;
+    }
+    
+    logger.debug(`Getting data for function: ${functionName}`);
+    
+    // Get function data
+    const func = db.prepare(`
+      SELECT id, filePath, functionName
+      FROM functions
+      WHERE functionName = ?
+    `).get(functionName) as FunctionRow | undefined;
+    
+    if (!func) {
+      return null;
+    }
+    
+    // Get dependencies, related modules, and execution tokens
+    const dependencies = db.prepare('SELECT dependsOn FROM dependencies WHERE functionId = ?').all(func.id) as DependencyRow[];
+    const related = db.prepare('SELECT relatedTo FROM related WHERE functionId = ?').all(func.id) as RelatedRow[];
+    const execTokens = db.prepare('SELECT token FROM exec_tokens WHERE functionId = ?').all(func.id) as ExecTokenRow[];
+    
+    const tag: AITag = {
+      filePath: func.filePath,
+      functionName: func.functionName,
+      dependsOn: dependencies.map((d: DependencyRow) => d.dependsOn),
+      related: related.map((r: RelatedRow) => r.relatedTo),
+      execTokens: execTokens.map((e: ExecTokenRow) => e.token)
+    };
+    
+    logger.info(`Found function data for ${functionName}`);
+    
+    return tag;
+  } catch (error) {
+    logger.error('Failed to get function data', error instanceof Error ? error : new Error(String(error)));
+    return null;
+  }
+}
+
+/**
  * Close the database connection
  */
 export function closeDatabase(): void {

@@ -9,47 +9,130 @@ The parser scans your codebase for AI-specific tags:
 - `@ai-related`: Links to related modules or classes (format: `Module1,Class2`)
 - `@ai-exec`: Defines execution tokens for automation (format: `test,benchmark,coverage`)
 
-The parser is implemented in `src/parser/aiTagParser.ts` and uses a simplified approach to detect functions and their associated AI tags. It now supports:
-- Regular function declarations
-- Arrow function expressions
-- Async functions
-- Class methods
+### 2. Input Sanitization
+The tag sanitizer ensures security and data integrity:
+- Function name validation using safe identifier patterns
+- File path sanitization with directory traversal prevention
+- Tag value validation for dependencies and related modules
+- Execution token validation against allowed tokens
+- Custom error handling for invalid inputs
 
-#### Current Language Limitations
-The current implementation primarily targets JavaScript and TypeScript code. While the extension can be configured to scan other file types, the function detection logic is optimized for JavaScript/TypeScript syntax patterns. Support for other languages would require implementing language-specific parsers.
-
-### 2. Storage Layer
+### 3. Storage Layer
 The extension supports two storage options:
 
 #### JSON Storage
 - Simple file-based storage in `ai-links.json`
 - Good for small to medium-sized projects
+- Fast for projects under 1000 functions
 - Implemented in `src/storage/jsonStorage.ts`
 
 #### SQLite Storage
 - Database-backed storage in `ai-links.db`
-- Better performance for large codebases
-- Supports complex queries for dependency analysis
+- Better performance for large codebases (>1000 functions)
+- Optimized query performance for dependency analysis
+- Transaction support for data integrity
 - Implemented in `src/storage/sqliteStorage.ts`
 
-The storage type can be configured in the extension settings.
+### 4. Progress Reporting
+Granular progress tracking during operations:
+- Detailed progress steps with percentage indicators
+- User-friendly progress messages
+- Cancellation support with cleanup
+- Error handling with descriptive messages
 
-### 3. Extension Commands
+### 5. Rate Limiting
+File watching optimization:
+- Debounced updates to prevent excessive processing
+- Configurable debounce time (default: 1 second)
+- TypeScript type safety for debounced functions
+- Memory leak prevention in watchers
+
+### 6. Performance Benchmarking
+Comprehensive testing suite:
+- Benchmarks for different storage backends
+- Sample size testing (10 to 5000 functions)
+- Measures:
+  - Indexing time
+  - Query performance
+  - Storage size
+  - Concurrent operation handling
+
+## Data Flow
+
+1. File watcher detects code changes (rate-limited)
+2. Input sanitizer validates function and tag data
+3. Parser extracts function metadata and AI tags
+4. Progress reporting tracks operation status
+5. Storage layer updates the registry (JSON or SQLite)
+6. Performance metrics are collected (in test mode)
+
+## Security Considerations
+
+1. **Input Validation**
+   - Function names must match safe identifier patterns
+   - File paths are sanitized to prevent traversal
+   - Tag values are validated against allowed patterns
+   - Execution tokens are checked against whitelist
+
+2. **Data Integrity**
+   - SQLite transactions for atomic updates
+   - File watching debouncing prevents corruption
+   - Error handling with proper cleanup
+   - Concurrent operation safety
+
+3. **Resource Management**
+   - Memory leak prevention in watchers
+   - Rate limiting for file system operations
+   - Proper cleanup of system resources
+   - Cancellation handling for long operations
+
+## Performance Optimization
+
+1. **Storage Selection**
+   - JSON storage for small projects (<1000 functions)
+   - SQLite for large projects (>1000 functions)
+   - Automatic performance benchmarking
+   - Storage size optimization
+
+2. **Operation Efficiency**
+   - Debounced file watching
+   - Incremental updates
+   - Optimized query patterns
+   - Resource cleanup
+
+## Future Improvements
+
+1. **Enhanced Language Support**
+   - Plugin system for language-specific parsers
+   - Support for additional comment styles
+   - Language-agnostic tag format
+
+2. **Performance Enhancements**
+   - Incremental parsing optimization
+   - Caching improvements
+   - Query optimization
+
+3. **Security Enhancements**
+   - Additional input validation
+   - Sandboxed execution
+   - Enhanced error handling
+
+4. **UI Improvements**
+   - Visual progress indicators
+   - Interactive cancellation
+   - Performance monitoring dashboard
+
+## Extension Commands
+
 - `aiContextualLinking.updateIndex`: Scans the codebase and updates the function registry
 - `aiContextualLinking.getFunctionData`: Gets data for a specific function
 - `aiContextualLinking.findDependentFunctions`: Finds functions that depend on a specific function
 - `aiContextualLinking.findRelatedFunctions`: Finds functions related to a specific module
 - `aiContextualLinking.findFunctionsByExecToken`: Finds functions with a specific execution token
 
-### 4. File Watchers
+## File Watchers
+
 The extension watches for file changes and automatically updates the function registry when files are created, modified, or deleted. This is implemented in `src/extension.ts` with a debounced update mechanism to avoid excessive processing.
-
-## Data Flow
-
-1. File watcher detects code changes
-2. Parser extracts function metadata and AI tags
-3. Storage layer updates the registry (JSON or SQLite)
-4. AI tools can query the registry through the extension's API
 
 ## AI Integration
 

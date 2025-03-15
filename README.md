@@ -1,10 +1,10 @@
-# AI Contextual Linking & Execution System
+# FuncMap
 
 A VS Code/Cursor extension that creates a pre-indexed, AI-queryable function registry to enhance AI-assisted development.
 
 ## 🎯 Key Features
 
-- **AI Contextual Linking & Pre-Indexed Function Map**
+- **Function Mapping & Pre-Indexed Registry**
   - Tag functions with `@ai-link`, `@ai-depends`, and `@ai-related`
   - Generates structured metadata to map function dependencies
   - Reduces AI search time by avoiding full codebase scans
@@ -59,29 +59,53 @@ Press F5 in VS Code to launch the extension in a development host window.
 // @ai-depends on=validateInput,parseResponse
 // @ai-related UserModel
 // @ai-exec test,benchmark
-async function fetchUserData(userId) {
+async function fetchUserData(userId: string): Promise<User> {
   // Function implementation
 }
 ```
 
-2. Update your AI index:
+2. Update your function index:
    - Automatically: The extension watches file changes
-   - Manually: Run the "AI Contextual Linking: Update Index" command (Ctrl+Shift+P)
+   - Manually: Run the "FuncMap: Update Index" command (Ctrl+Shift+P)
 
 3. Access function relationships through the extension's API:
 
 ```typescript
+// Types for function registry
+interface AITag {
+  filePath: string;
+  functionName: string;
+  dependsOn: string[];
+  related: string[];
+  execTokens: string[];
+}
+
 // Get data for a specific function
-const functionData = await vscode.commands.executeCommand('aiContextualLinking.getFunctionData', 'fetchUserData');
+const functionData = await vscode.commands.executeCommand<AITag>('funcmap.getFunctionData', 'fetchUserData');
 
 // Find functions that depend on a specific function
-const dependentFunctions = await vscode.commands.executeCommand('aiContextualLinking.findDependentFunctions', 'validateInput');
+const dependentFunctions = await vscode.commands.executeCommand<AITag[]>('funcmap.findDependentFunctions', 'validateInput');
 
 // Find functions related to a specific module
-const relatedFunctions = await vscode.commands.executeCommand('aiContextualLinking.findRelatedFunctions', 'UserModel');
+const relatedFunctions = await vscode.commands.executeCommand<AITag[]>('funcmap.findRelatedFunctions', 'UserModel');
 
 // Find functions with a specific execution token
-const testFunctions = await vscode.commands.executeCommand('aiContextualLinking.findFunctionsByExecToken', 'test');
+const testFunctions = await vscode.commands.executeCommand<AITag[]>('funcmap.findFunctionsByExecToken', 'test');
+
+// Example usage with error handling
+try {
+  const functionData = await vscode.commands.executeCommand<AITag>('funcmap.getFunctionData', 'fetchUserData');
+  if (functionData) {
+    console.log(`Function ${functionData.functionName} found in ${functionData.filePath}`);
+    console.log('Dependencies:', functionData.dependsOn);
+    console.log('Related modules:', functionData.related);
+    console.log('Execution tokens:', functionData.execTokens);
+  } else {
+    console.log('Function not found');
+  }
+} catch (error) {
+  console.error('Error accessing function registry:', error);
+}
 ```
 
 ## 📚 Documentation
@@ -139,11 +163,19 @@ Future versions will add support for additional programming languages through a 
 
 ## ⚙️ Configuration
 
-The extension can be configured through VS Code settings:
+This extension contributes the following settings:
 
-- `aiContextualLinking.watchFiles`: Enable/disable automatic file watching (default: `true`)
-- `aiContextualLinking.filePatterns`: File patterns to include in scanning (default: `["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"]`)
-- `aiContextualLinking.storageType`: Storage type for the function registry (default: `json`)
+* `funcmap.watchFiles`: Enable or disable automatic file watching for index updates. Defaults to `true`.
+* `funcmap.filePatterns`: Define file patterns to include in the index scan. Defaults to `["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"]`.
+* `funcmap.storageType`: Storage type for the function registry (json or sqlite). Defaults to `json`.
+
+## Extension Commands
+
+* `FuncMap: Update Index`: Manually triggers the update of the function registry.
+* `FuncMap: Get Function Data`: Gets data for a specific function.
+* `FuncMap: Find Dependent Functions`: Finds functions that depend on a specific function.
+* `FuncMap: Find Related Functions`: Finds functions related to a specific module.
+* `FuncMap: Find Functions By Execution Token`: Finds functions with a specific execution token.
 
 ## 🛠️ Development
 
