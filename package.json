@@ -21,6 +21,22 @@
       {
         "command": "aiContextualLinking.updateIndex",
         "title": "AI Contextual Linking: Update Index"
+      },
+      {
+        "command": "aiContextualLinking.getFunctionData",
+        "title": "AI Contextual Linking: Get Function Data"
+      },
+      {
+        "command": "aiContextualLinking.findDependentFunctions",
+        "title": "AI Contextual Linking: Find Dependent Functions"
+      },
+      {
+        "command": "aiContextualLinking.findRelatedFunctions",
+        "title": "AI Contextual Linking: Find Related Functions"
+      },
+      {
+        "command": "aiContextualLinking.findFunctionsByExecToken",
+        "title": "AI Contextual Linking: Find Functions By Execution Token"
       }
     ],
     "configuration": {
@@ -33,8 +49,22 @@
         },
         "aiContextualLinking.filePatterns": {
           "type": "array",
-          "default": ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"],
+          "default": [
+            "**/*.js",
+            "**/*.ts",
+            "**/*.jsx",
+            "**/*.tsx"
+          ],
           "description": "File patterns to include in scanning"
+        },
+        "aiContextualLinking.storageType": {
+          "type": "string",
+          "enum": [
+            "json",
+            "sqlite"
+          ],
+          "default": "json",
+          "description": "Storage type for the function registry (json or sqlite)"
         }
       }
     }
@@ -47,6 +77,8 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/d3": "^7.4.3",
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.2.2",
     "@types/node": "14.x",
@@ -58,5 +90,10 @@
     "mocha": "^8.4.0",
     "typescript": "^4.3.2",
     "vscode-test": "^1.5.2"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.9.0",
+    "d3": "^7.9.0",
+    "sqlite3": "^5.1.7"
   }
-} 
+}
