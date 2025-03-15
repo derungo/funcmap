@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-enum LogLevel {
+export enum LogLevel {
   debug = 0,
   info = 1,
   warn = 2,
