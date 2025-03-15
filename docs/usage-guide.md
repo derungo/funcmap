@@ -46,6 +46,43 @@ function criticalFunction() {
 
 The `@ai-exec` tag defines execution tokens that can be used for automation. For example, you can tag functions that should be included in specific test suites, performance benchmarks, or code coverage analysis.
 
+## Language Support
+
+### Currently Supported Languages
+
+The current implementation primarily targets JavaScript and TypeScript code. The parser is optimized for detecting functions and methods in these languages.
+
+### Comment Styles
+
+While the extension can scan any file type, the AI tags must be in JavaScript/TypeScript-style comments:
+
+```typescript
+// Single-line comment style
+// @ai-link name=functionName
+
+/* Multi-line comment style
+ * @ai-depends on=otherFunction
+ */
+```
+
+### Future Language Support
+
+Future versions will add support for additional programming languages with their native comment styles:
+
+```python
+# Python-style comment
+# @ai-link name=functionName
+```
+
+```java
+// Java-style comment
+// @ai-link name=functionName
+
+/* Java multi-line comment
+ * @ai-depends on=otherFunction
+ */
+```
+
 ## Working with the Extension
 
 ### Updating the Index
@@ -162,6 +199,16 @@ When using Cursor IDE with this extension:
 - "Refactor the `processPayment` function and update all dependent functions"
 - "Explain the dependency chain for the `submitOrder` function"
 
+### Advanced AI Prompts
+
+These more specialized prompts leverage the function registry for complex tasks:
+
+- "Analyze the impact of changing the return type of `getUserData` on dependent functions"
+- "Generate a sequence diagram showing the call flow from `submitOrder` to all its dependencies"
+- "Identify potential circular dependencies in the `AuthService` module"
+- "Suggest optimizations for functions with the `@ai-exec performance` token"
+- "Create unit tests that mock all dependencies of the `processPayment` function"
+
 ## Configuring the Extension
 
 You can customize the extension behavior in VS Code settings:
@@ -183,4 +230,5 @@ To access these settings:
 3. **Update Regularly**: Run the update index command after significant code changes
 4. **Document Complex Relationships**: Use `@ai-related` to document non-direct dependencies or conceptual relationships
 5. **Leverage Execution Tokens**: Use `@ai-exec` tags to enable automated workflows and testing
-6. **Choose the Right Storage**: Use JSON for small projects and SQLite for large codebases 
+6. **Choose the Right Storage**: Use JSON for small projects and SQLite for large codebases
+7. **Consider Performance**: For large codebases, be selective about which files to scan using the `filePatterns` setting 

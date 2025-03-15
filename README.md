@@ -128,6 +128,22 @@ When using Cursor IDE with this extension:
 
 3. Get smarter refactoring suggestions that consider all dependencies
 
+4. Use advanced AI prompts for complex tasks:
+   - "Analyze the impact of changing the return type of getUserData"
+   - "Identify potential circular dependencies in the AuthService module"
+   - "Create unit tests that mock all dependencies of processPayment"
+
+## 🌐 Language Support
+
+The current implementation primarily targets JavaScript and TypeScript code. The parser is optimized for detecting functions and methods in these languages.
+
+Future versions will add support for additional programming languages through a plugin system for language-specific parsers, including:
+- Python
+- Java
+- C#
+- Ruby
+- Go
+
 ## ⚙️ Configuration
 
 The extension can be configured through VS Code settings:
@@ -160,6 +176,24 @@ ai-contextual-linking/
 │   └── generated-docs.md
 └── ...
 ```
+
+### Future Development Plans
+
+1. **Improved Parser Robustness**: 
+   - Use TypeScript's compiler API for more accurate parsing
+   - Better handling of complex code patterns and edge cases
+
+2. **Performance Optimization**:
+   - Implement incremental updates rather than full rescans
+   - Persistent caching of parsed results to speed up initial loading
+
+3. **Language Agnosticism**:
+   - Develop a plugin system for language-specific parsers
+   - Support for Python, Java, C#, and other popular languages
+
+4. **Enhanced AI Integration**:
+   - Develop specialized AI prompts and commands that leverage the registry
+   - Create AI-specific APIs for common code understanding tasks
 
 ### Building the Extension
 

@@ -15,6 +15,9 @@ The parser is implemented in `src/parser/aiTagParser.ts` and uses a simplified a
 - Async functions
 - Class methods
 
+#### Current Language Limitations
+The current parser implementation primarily targets JavaScript and TypeScript code. While the extension can be configured to scan other file types, the function detection logic is optimized for JavaScript/TypeScript syntax patterns. Support for other languages would require implementing language-specific parsers.
+
 ### 2. Storage Layer
 The extension supports two storage options:
 
@@ -132,7 +135,22 @@ The extension can be configured through VS Code settings:
 
 ## Future Enhancements
 
-1. **SQLite Storage**: Implement a SQLite-based storage layer for better performance with large codebases
-2. **AST-based Parsing**: Use an AST parser for more accurate function detection
-3. **Enhanced AI Integration**: Provide direct API access for AI tools to query the function registry
-4. **Visualization**: Add a visualization tool to display function dependencies as a graph 
+1. **Improved Parser Robustness**: 
+   - Use TypeScript's compiler API for more accurate parsing
+   - Support for additional programming languages through language-agnostic parsing strategies
+   - Better handling of complex code patterns and edge cases
+
+2. **Performance Optimization**:
+   - Implement incremental updates rather than full rescans
+   - Persistent caching of parsed results to speed up initial loading
+   - Optimize database queries for large codebases
+
+3. **Enhanced AI Integration**:
+   - Develop specialized AI prompts and commands that leverage the registry
+   - Create AI-specific APIs for common code understanding tasks
+   - Provide context-aware code completion suggestions
+
+4. **Language Agnosticism**:
+   - Develop a plugin system for language-specific parsers
+   - Support for Python, Java, C#, and other popular languages
+   - Language-agnostic tag format that works across different comment styles 
