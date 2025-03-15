@@ -12,9 +12,14 @@ import {
 import {
   getFunctionData as getJsonFunctionData
 } from './storage/jsonStorage';
+import { ComposerIntegration } from './composerIntegration';
+import { IStorage } from './storage/storage';
 
 // Store the storage type that's actually in use
 export let activeStorageType: 'json' | 'sqlite' = 'json';
+
+// Store the active storage implementation
+let activeStorage: IStorage;
 
 // @ai-link name=setActiveStorageType
 // @ai-depends on=logger.info
@@ -87,30 +92,40 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
   logger.info('Starting FuncMap activation...');
   
   try {
-    // Get the configured storage type
+    // Initialize storage based on configuration
     const config = getConfiguration();
-    const configuredStorageType = config.get<string>('storageType', 'json');
-    activeStorageType = configuredStorageType as 'json' | 'sqlite';
-    
-    // Initialize database if needed
-    if (activeStorageType === 'sqlite') {
-      logger.debug('Initializing database...');
-      try {
-        await initializeDatabase();
-        logger.info('SQLite database initialized successfully');
-      } catch (dbError) {
-        const errorMsg = `Failed to initialize SQLite database: ${dbError instanceof Error ? dbError.message : String(dbError)}`;
-        logger.error(errorMsg);
-        vscode.window.showWarningMessage(`${errorMsg}. Falling back to JSON storage.`);
-        
-        // Fall back to JSON storage
-        activeStorageType = 'json';
-        await config.update('storageType', 'json', vscode.ConfigurationTarget.Workspace);
-        logger.info('Switched to JSON storage due to SQLite initialization failure');
-      }
+    const storageType = config.get<'json' | 'sqlite'>('storageType', 'json');
+    setActiveStorageType(storageType);
+
+    // Initialize storage implementation
+    if (storageType === 'sqlite') {
+      await initializeDatabase();
+      activeStorage = {
+        getFunctionData: getSqliteFunctionData,
+        findDependentFunctions: findSqliteDependentFunctions,
+        findRelatedFunctions: findSqliteRelatedFunctions,
+        findFunctionsByExecToken: findSqliteFunctionsByExecToken,
+        searchFunctions: async (query: string) => [], // TODO: Implement search
+        getAllFunctions: async () => [], // TODO: Implement getAllFunctions
+        saveToStorage: async (tags) => {} // TODO: Implement save
+      };
+    } else {
+      activeStorage = {
+        getFunctionData: getJsonFunctionData,
+        findDependentFunctions: async () => [], // TODO: Implement for JSON storage
+        findRelatedFunctions: async () => [], // TODO: Implement for JSON storage
+        findFunctionsByExecToken: async () => [], // TODO: Implement for JSON storage
+        searchFunctions: async () => [], // TODO: Implement search
+        getAllFunctions: async () => [], // TODO: Implement getAllFunctions
+        saveToStorage: async (tags) => {} // TODO: Implement save
+      };
     }
     
     logger.debug('Registering commands...');
+    
+    // Initialize Composer integration
+    const composerIntegration = new ComposerIntegration(activeStorage);
+    global.funcmapForComposer = composerIntegration;
     
     // Register the update index command
     const updateIndexCommand = vscode.commands.registerCommand(

@@ -1,8 +1,8 @@
 {
   "name": "funcmap",
   "displayName": "FuncMap",
-  "description": "AI-queryable function registry for enhanced development",
-  "version": "0.3.0",
+  "description": "AI-queryable function registry with Cursor Composer integration for enhanced development",
+  "version": "0.4.0",
   "publisher": "derungo",
   "icon": "images/icon.png",
   "repository": {
@@ -15,14 +15,18 @@
   "categories": [
     "Other",
     "Programming Languages",
-    "Machine Learning"
+    "Machine Learning",
+    "AI"
   ],
   "keywords": [
     "ai",
     "function",
     "mapping",
     "dependencies",
-    "contextual"
+    "contextual",
+    "cursor",
+    "composer",
+    "integration"
   ],
   "activationEvents": [
     "onCommand:funcmap.updateIndex",

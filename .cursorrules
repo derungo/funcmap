@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "name": "FuncMap Rules",
+  "description": "Rules for using the FuncMap extension in Cursor",
+  "settings": {
+    "funcmap.watchFiles": true,
+    "funcmap.filePatterns": [
+      "**/*.js",
+      "**/*.ts",
+      "**/*.jsx",
+      "**/*.tsx"
+    ],
+    "funcmap.storageType": "json"
+  },
+  "tags": {
+    "patterns": [
+      {
+        "name": "aiLink",
+        "pattern": "// @ai-link name={name}",
+        "description": "Links a function to the AI index with optional alternative name"
+      },
+      {
+        "name": "aiDepends",
+        "pattern": "// @ai-depends on={dependencies}",
+        "description": "Specifies functions that this function depends on (comma-separated)"
+      },
+      {
+        "name": "aiRelated",
+        "pattern": "// @ai-related {modules}",
+        "description": "Links the function to related modules or classes (comma-separated)"
+      },
+      {
+        "name": "aiExec",
+        "pattern": "// @ai-exec {tokens}",
+        "description": "Defines execution tokens for automation (comma-separated)"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "name": "updateIndex",
+      "command": "funcmap.updateIndex",
+      "description": "Update the function registry"
+    },
+    {
+      "name": "getFunctionData",
+      "command": "funcmap.getFunctionData",
+      "description": "Get data for a specific function"
+    },
+    {
+      "name": "findDependentFunctions",
+      "command": "funcmap.findDependentFunctions",
+      "description": "Find functions that depend on a specific function"
+    },
+    {
+      "name": "findRelatedFunctions",
+      "command": "funcmap.findRelatedFunctions",
+      "description": "Find functions related to a specific module"
+    },
+    {
+      "name": "findFunctionsByExecToken",
+      "command": "funcmap.findFunctionsByExecToken",
+      "description": "Find functions with a specific execution token"
+    }
+  ],
+  "aiPrompts": [
+    {
+      "name": "getFunctionContext",
+      "pattern": "What does the function {functionName} do?",
+      "command": "funcmap.getFunctionData",
+      "params": ["{functionName}"],
+      "description": "Get context about a specific function"
+    },
+    {
+      "name": "findDependencies",
+      "pattern": "What functions depend on {functionName}?",
+      "command": "funcmap.findDependentFunctions",
+      "params": ["{functionName}"],
+      "description": "Find dependencies for a function"
+    },
+    {
+      "name": "findRelated",
+      "pattern": "Find functions related to {moduleName}",
+      "command": "funcmap.findRelatedFunctions",
+      "params": ["{moduleName}"],
+      "description": "Find functions related to a module"
+    },
+    {
+      "name": "findByExecToken",
+      "pattern": "Find all {token} functions",
+      "command": "funcmap.findFunctionsByExecToken",
+      "params": ["{token}"],
+      "description": "Find functions with a specific execution token"
+    }
+  ],
+  "templates": {
+    "functionTemplate": [
+      "// @ai-link name={functionName}",
+      "// @ai-depends on={dependencies}",
+      "// @ai-related {relatedModules}",
+      "// @ai-exec {executionTokens}",
+      "function {functionName}({parameters}) {",
+      "  // Implementation",
+      "}"
+    ],
+    "asyncFunctionTemplate": [
+      "// @ai-link name={functionName}",
+      "// @ai-depends on={dependencies}",
+      "// @ai-related {relatedModules}",
+      "// @ai-exec {executionTokens}",
+      "async function {functionName}({parameters}) {",
+      "  // Implementation",
+      "}"
+    ],
+    "methodTemplate": [
+      "// @ai-link name={className}.{methodName}",
+      "// @ai-depends on={dependencies}",
+      "// @ai-related {relatedModules}",
+      "// @ai-exec {executionTokens}",
+      "{methodName}({parameters}) {",
+      "  // Implementation",
+      "}"
+    ]
+  }
+} 

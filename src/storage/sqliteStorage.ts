@@ -539,4 +539,84 @@ export function closeDatabase(): void {
     db = null;
     logger.debug('SQLite database connection closed');
   }
+}
+
+// @ai-link name=searchFunctions
+// @ai-depends on=db,logger.debug,logger.error
+// @ai-related AITag,FunctionRow,DependencyRow,RelatedRow,ExecTokenRow
+// @ai-exec storage,query,search,sqlite
+export async function searchFunctions(query: string): Promise<AITag[]> {
+  if (!db) {
+    logger.error('Database not initialized');
+    return [];
+  }
+
+  const database = db;
+
+  try {
+    const lowerQuery = query.toLowerCase();
+    const rows = database.prepare(`
+      SELECT DISTINCT f.id, f.filePath, f.functionName
+      FROM functions f
+      LEFT JOIN dependencies d ON f.id = d.functionId
+      LEFT JOIN related r ON f.id = r.functionId
+      LEFT JOIN exec_tokens e ON f.id = e.functionId
+      WHERE LOWER(f.functionName) LIKE ?
+         OR LOWER(f.filePath) LIKE ?
+         OR LOWER(d.dependsOn) LIKE ?
+         OR LOWER(r.relatedTo) LIKE ?
+         OR LOWER(e.token) LIKE ?
+    `).all(`%${lowerQuery}%`, `%${lowerQuery}%`, `%${lowerQuery}%`, `%${lowerQuery}%`, `%${lowerQuery}%`) as FunctionRow[];
+
+    return await Promise.all(rows.map(async (row: FunctionRow) => {
+      const dependsOnRows = database.prepare('SELECT dependsOn FROM dependencies WHERE functionId = ?').all(row.id) as { dependsOn: string }[];
+      const relatedRows = database.prepare('SELECT relatedTo FROM related WHERE functionId = ?').all(row.id) as { relatedTo: string }[];
+      const execTokenRows = database.prepare('SELECT token FROM exec_tokens WHERE functionId = ?').all(row.id) as { token: string }[];
+
+      return {
+        filePath: row.filePath,
+        functionName: row.functionName,
+        dependsOn: dependsOnRows.map(d => d.dependsOn),
+        related: relatedRows.map(r => r.relatedTo),
+        execTokens: execTokenRows.map(e => e.token)
+      };
+    }));
+  } catch (error) {
+    logger.error(`Failed to search functions: ${error instanceof Error ? error.message : String(error)}`);
+    return [];
+  }
+}
+
+// @ai-link name=getAllFunctions
+// @ai-depends on=db,logger.debug,logger.error
+// @ai-related AITag,FunctionRow,DependencyRow,RelatedRow,ExecTokenRow
+// @ai-exec storage,query,sqlite
+export async function getAllFunctions(): Promise<AITag[]> {
+  if (!db) {
+    logger.error('Database not initialized');
+    return [];
+  }
+
+  const database = db;
+
+  try {
+    const rows = database.prepare('SELECT id, filePath, functionName FROM functions').all() as FunctionRow[];
+
+    return await Promise.all(rows.map(async (row: FunctionRow) => {
+      const dependsOnRows = database.prepare('SELECT dependsOn FROM dependencies WHERE functionId = ?').all(row.id) as { dependsOn: string }[];
+      const relatedRows = database.prepare('SELECT relatedTo FROM related WHERE functionId = ?').all(row.id) as { relatedTo: string }[];
+      const execTokenRows = database.prepare('SELECT token FROM exec_tokens WHERE functionId = ?').all(row.id) as { token: string }[];
+
+      return {
+        filePath: row.filePath,
+        functionName: row.functionName,
+        dependsOn: dependsOnRows.map(d => d.dependsOn),
+        related: relatedRows.map(r => r.relatedTo),
+        execTokens: execTokenRows.map(e => e.token)
+      };
+    }));
+  } catch (error) {
+    logger.error(`Failed to get all functions: ${error instanceof Error ? error.message : String(error)}`);
+    return [];
+  }
 } 
