@@ -14,7 +14,7 @@ export async function parseFilesForAITags(): Promise<AITag[]> {
   
   // Get all files matching patterns from configuration
   const config = vscode.workspace.getConfiguration('aiContextualLinking');
-  const filePatterns = config.get<string[]>('filePatterns', ['**/*.js', '**/*.ts']);
+  const filePatterns = config.get<string[]>('filePatterns', ['**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx']);
   
   logger.debug(`Using file patterns: ${filePatterns.join(', ')}`);
   
@@ -34,15 +34,26 @@ export async function parseFilesForAITags(): Promise<AITag[]> {
       const lines = text.split(/\r?\n/);
       
       let currentFunction: { name: string, tags: AITag } | null = null;
+      let inClassDefinition = false;
+      let currentClassName = '';
       
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         
+        // Check for class definitions
+        const classMatch = line.match(/class\s+(\w+)/);
+        if (classMatch) {
+          inClassDefinition = true;
+          currentClassName = classMatch[1];
+          logger.debug(`Found class: ${currentClassName} in ${file.fsPath}`);
+          continue;
+        }
+        
         // Look for function declarations
         // This is a simplified approach - a more robust implementation would use an AST parser
-        const functionMatch = line.match(/function\s+(\w+)|const\s+(\w+)\s*=\s*\(/);
+        const functionMatch = line.match(/function\s+(\w+)|const\s+(\w+)\s*=\s*\(|async\s+function\s+(\w+)/);
         if (functionMatch) {
-          const functionName = functionMatch[1] || functionMatch[2];
+          const functionName = functionMatch[1] || functionMatch[2] || functionMatch[3];
           logger.debug(`Found function: ${functionName} in ${file.fsPath}`);
           currentFunction = {
             name: functionName,
@@ -57,13 +68,51 @@ export async function parseFilesForAITags(): Promise<AITag[]> {
           tags.push(currentFunction.tags);
         }
         
+        // Look for class methods
+        if (inClassDefinition) {
+          // Match regular methods, async methods, and arrow function properties
+          const methodMatch = line.match(/(?:async\s+)?(\w+)\s*\(|(\w+)\s*=\s*(?:async\s*)?\(/);
+          if (methodMatch) {
+            const methodName = methodMatch[1] || methodMatch[2];
+            if (methodName && !['constructor', 'if', 'for', 'while', 'switch'].includes(methodName)) {
+              logger.debug(`Found class method: ${methodName} in class ${currentClassName} in ${file.fsPath}`);
+              const fullMethodName = `${currentClassName}.${methodName}`;
+              currentFunction = {
+                name: methodName,
+                tags: {
+                  filePath: file.fsPath,
+                  functionName: fullMethodName,
+                  dependsOn: [],
+                  related: [],
+                  execTokens: []
+                }
+              };
+              tags.push(currentFunction.tags);
+            }
+          }
+          
+          // Check for end of class definition
+          if (line.includes('}') && !line.includes('{')) {
+            const openBraces = line.split('{').length - 1;
+            const closeBraces = line.split('}').length - 1;
+            if (closeBraces > openBraces) {
+              inClassDefinition = false;
+              currentClassName = '';
+            }
+          }
+        }
+        
         // Look for AI tags
         if (currentFunction) {
           // @ai-link name=X
           const linkMatch = line.match(/@ai-link(?:\s+name=(\w+))?/);
-          if (linkMatch && linkMatch[1]) {
-            logger.debug(`Found @ai-link: ${linkMatch[1]} for function ${currentFunction.name}`);
-            currentFunction.tags.functionName = linkMatch[1];
+          if (linkMatch) {
+            if (linkMatch[1]) {
+              logger.debug(`Found @ai-link: ${linkMatch[1]} for function ${currentFunction.name}`);
+              currentFunction.tags.functionName = linkMatch[1];
+            } else {
+              logger.debug(`Found @ai-link for function ${currentFunction.name}`);
+            }
           }
           
           // @ai-depends on=X,Y,Z

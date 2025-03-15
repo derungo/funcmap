@@ -1,7 +1,9 @@
 import * as vscode from 'vscode';
 import { parseFilesForAITags } from '../parser/aiTagParser';
 import { saveToJson } from '../storage/jsonStorage';
+import { saveToSqlite } from '../storage/sqliteStorage';
 import { logger } from '../utils/logger';
+import { getConfiguration } from '../utils/config';
 
 export async function updateIndex(context: vscode.ExtensionContext): Promise<void> {
   try {
@@ -19,13 +21,23 @@ export async function updateIndex(context: vscode.ExtensionContext): Promise<voi
       logger.debug('Parsing files for AI tags');
       const tags = await parseFilesForAITags();
       logger.info(`Found ${tags.length} functions with AI tags`);
-      progress.report({ increment: 50, message: `Found ${tags.length} functions` });
+      progress.report({ increment: 40, message: `Found ${tags.length} functions` });
       
-      // Save to JSON
-      logger.debug('Saving function registry to JSON');
-      await saveToJson(tags);
+      // Get storage type from configuration
+      const config = getConfiguration();
+      const storageType = config.get<string>('storageType', 'json');
       
-      progress.report({ increment: 50, message: 'Registry updated' });
+      // Save to appropriate storage
+      if (storageType === 'sqlite') {
+        logger.debug('Saving function registry to SQLite');
+        await saveToSqlite(tags);
+        progress.report({ increment: 60, message: 'Registry updated (SQLite)' });
+      } else {
+        // Default to JSON
+        logger.debug('Saving function registry to JSON');
+        await saveToJson(tags);
+        progress.report({ increment: 60, message: 'Registry updated (JSON)' });
+      }
     });
     
     logger.info('AI function registry updated successfully');
