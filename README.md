@@ -27,8 +27,8 @@ A VS Code/Cursor extension that creates a pre-indexed, AI-queryable function reg
 ### Installation
 
 ```bash
-git clone https://github.com/YourUsername/ai-contextual-linking.git
-cd ai-contextual-linking
+git clone https://github.com/derungo/funcmap.git
+cd funcmap
 npm install
 ```
 
@@ -112,27 +112,6 @@ Defines execution tokens for automation.
 function criticalFunction() { /* ... */ }
 ```
 
-## 🔍 Cursor AI Integration
-
-When using Cursor IDE with this extension:
-
-1. Use `cursor-tools repo` commands to query function relationships:
-   - `cursor-tools repo "function dependencies for fetchUserData"`
-   - `cursor-tools repo "functions related to UserModel"`
-   - `cursor-tools repo "functions with exec token test"`
-
-2. Ask AI to analyze code with awareness of function dependencies:
-   - "What functions depend on authenticateUser?"
-   - "Show me all functions related to the UserService module"
-   - "Generate tests for all functions with the test execution token"
-
-3. Get smarter refactoring suggestions that consider all dependencies
-
-4. Use advanced AI prompts for complex tasks:
-   - "Analyze the impact of changing the return type of getUserData"
-   - "Identify potential circular dependencies in the AuthService module"
-   - "Create unit tests that mock all dependencies of processPayment"
-
 ## 🌐 Language Support
 
 The current implementation primarily targets JavaScript and TypeScript code. The parser is optimized for detecting functions and methods in these languages.
@@ -157,7 +136,7 @@ The extension can be configured through VS Code settings:
 ### Project Structure
 
 ```
-ai-contextual-linking/
+funcmap/
 ├── src/
 │   ├── extension.ts         # Main extension entry point
 │   ├── parser/              # Code parsing functionality

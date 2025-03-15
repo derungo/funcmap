@@ -81,7 +81,7 @@ Fixes #456
 ## Development Setup
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/ai-contextual-linking.git`
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/funcmap.git`
 3. Install dependencies: `npm install`
 4. Create a branch for your changes: `git checkout -b feature/your-feature-name`
 5. Make your changes
