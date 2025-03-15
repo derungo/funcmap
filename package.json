@@ -84,9 +84,10 @@
             "**/*.js",
             "**/*.ts",
             "**/*.jsx",
-            "**/*.tsx"
+            "**/*.tsx",
+            "**/*.py"
           ],
-          "description": "File patterns to include in the index scan"
+          "description": "File patterns to scan for function definitions (JavaScript, TypeScript, and Python files)"
         },
         "funcmap.storageType": {
           "type": "string",

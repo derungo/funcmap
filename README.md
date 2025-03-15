@@ -11,6 +11,21 @@ AI-queryable function registry with Cursor Composer integration for enhanced dev
 - 🏷️ **Execution Tags**: Group functions by execution context
 - 🔄 **Live Updates**: Watch for file changes and update the registry automatically
 
+FuncMap helps you understand your codebase by:
+
+- Analyzing function relationships in JavaScript, TypeScript, and Python files
+- Tracking function dependencies and related components
+- Providing quick navigation between related functions
+- Supporting AI-powered code analysis through special comment tags
+
+## Supported Languages
+
+- JavaScript (`.js`)
+- TypeScript (`.ts`)
+- JSX (`.jsx`)
+- TSX (`.tsx`)
+- Python (`.py`)
+
 ## Installation
 
 1. Install the extension from the VS Code marketplace
@@ -19,14 +34,27 @@ AI-queryable function registry with Cursor Composer integration for enhanced dev
 
 ## AI Tags
 
-```typescript
-// @ai-link name=yourFunction
-// @ai-depends on=otherFunction1,otherFunction2
-// @ai-related YourModule
-// @ai-exec yourTag
-function yourFunction() {
-    // Implementation
+FuncMap uses special comment tags to track relationships between functions. These tags work in all supported languages:
+
+JavaScript/TypeScript:
+```javascript
+// @ai-link name=myFunction
+// @ai-depends on=otherFunction
+// @ai-related SomeComponent
+// @ai-exec query,update
+function myFunction() {
+  // ...
 }
+```
+
+Python:
+```python
+# @ai-link name=my_function
+# @ai-depends on=other_function
+# @ai-related SomeClass
+# @ai-exec query,update
+def my_function():
+    # ...
 ```
 
 ## Cursor Composer Integration

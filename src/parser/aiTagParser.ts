@@ -16,15 +16,15 @@ export interface AITag {
 // @ai-depends on=vscode.workspace.findFiles,vscode.workspace.openTextDocument,logger.debug,logger.info,logger.error
 // @ai-related AITag,vscode.TextDocument
 // @ai-exec parse,index,core
-export async function parseFilesForAITags(filePatterns: string[] = ['**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx']): Promise<AITag[]> {
+export async function parseFilesForAITags(filePatterns: string[] = ['**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx', '**/*.py']): Promise<AITag[]> {
   const tags: AITag[] = [];
   
   logger.debug(`Using file patterns: ${filePatterns.join(', ')}`);
   
-  // Exclude node_modules
+  // Exclude node_modules and Python virtual environments
   const files = await vscode.workspace.findFiles(
     `{${filePatterns.join(',')}}`, 
-    '**/node_modules/**'
+    '{**/node_modules/**,**/.venv/**,**/venv/**,**/__pycache__/**}'
   );
   
   logger.info(`Found ${files.length} files to parse`);
@@ -39,25 +39,31 @@ export async function parseFilesForAITags(filePatterns: string[] = ['**/*.js', '
       let currentFunction: { name: string, tags: AITag } | null = null;
       let inClassDefinition = false;
       let currentClassName = '';
+      let indentationLevel = 0;
       
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         
         // Check for class definitions
-        const classMatch = line.match(/class\s+(\w+)/);
+        const classMatch = line.match(/(?:class\s+(\w+))|(?:^class\s+(\w+)\s*[:\(])/);
         if (classMatch) {
           inClassDefinition = true;
-          currentClassName = classMatch[1];
+          currentClassName = classMatch[1] || classMatch[2];
           logger.debug(`Found class: ${currentClassName} in ${file.fsPath}`);
           continue;
         }
         
-        // Look for function declarations
-        // This is a simplified approach - a more robust implementation would use an AST parser
-        const functionMatch = line.match(/function\s+(\w+)|const\s+(\w+)\s*=\s*\(|async\s+function\s+(\w+)/);
+        // Look for function declarations including Python's def
+        const functionMatch = line.match(/(?:function\s+(\w+))|(?:const\s+(\w+)\s*=\s*\()|(?:async\s+function\s+(\w+))|(?:def\s+(\w+)\s*\()/);
         if (functionMatch) {
-          const functionName = functionMatch[1] || functionMatch[2] || functionMatch[3];
+          const functionName = functionMatch[1] || functionMatch[2] || functionMatch[3] || functionMatch[4];
           logger.debug(`Found function: ${functionName} in ${file.fsPath}`);
+          
+          // For Python, track indentation level
+          if (file.fsPath.endsWith('.py')) {
+            indentationLevel = line.search(/\S/);
+          }
+          
           currentFunction = {
             name: functionName,
             tags: {
@@ -69,6 +75,16 @@ export async function parseFilesForAITags(filePatterns: string[] = ['**/*.js', '
             }
           };
           tags.push(currentFunction.tags);
+          continue;
+        }
+        
+        // For Python files, check if we've exited the function based on indentation
+        if (currentFunction && file.fsPath.endsWith('.py')) {
+          const currentIndentation = line.search(/\S/);
+          if (currentIndentation !== -1 && currentIndentation <= indentationLevel && line.trim().length > 0) {
+            currentFunction = null;
+            continue;
+          }
         }
         
         // Look for class methods

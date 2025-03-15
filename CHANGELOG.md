@@ -66,4 +66,14 @@ All notable changes to the "funcmap" extension will be documented in this file.
 ### Added
 - Initial extension setup
 - Basic function parsing
-- Project structure and documentation 
+- Project structure and documentation
+
+## [Unreleased]
+
+### Added
+- Python language support
+  - Function and class detection
+  - Support for Python-style comments in AI tags
+  - Indentation-based function scope detection
+  - Example Python file demonstrating usage
+- Updated documentation with Python examples and configuration 
