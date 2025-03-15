@@ -1,6 +1,661 @@
 {
   "functions": [
     {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "getFunctionData",
+      "dependsOn": [
+        "getSqliteFunctionData",
+        "getJsonFunctionData",
+        "activeStorageType"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "query",
+        "storage"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "findDependentFunctions",
+      "dependsOn": [
+        "findSqliteDependentFunctions",
+        "activeStorageType",
+        "vscode"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "query",
+        "dependencies"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "findDependentFunctions",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "findRelatedFunctions",
+      "dependsOn": [
+        "findSqliteRelatedFunctions",
+        "activeStorageType",
+        "vscode"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "query",
+        "related"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "findRelatedFunctions",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "findFunctionsByExecToken",
+      "dependsOn": [
+        "findSqliteFunctionsByExecToken",
+        "activeStorageType",
+        "vscode"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "query",
+        "tokens"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "findFunctionsByExecToken",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "activate",
+      "dependsOn": [
+        "logger"
+      ],
+      "related": [
+        "vscode"
+      ],
+      "execTokens": [
+        "extension",
+        "initialization"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "activate",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "name",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "name",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "data",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "name",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "deactivate",
+      "dependsOn": [
+        "logger"
+      ],
+      "related": [
+        "vscode"
+      ],
+      "execTokens": [
+        "extension",
+        "cleanup"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
+      "functionName": "deactivate",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/commands/updateIndex.ts",
+      "functionName": "updateIndex",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/commands/updateIndex.ts",
+      "functionName": "registry",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/commands/updateIndex.ts",
+      "functionName": "updateIndexWrapper",
+      "dependsOn": [
+        "updateIndex",
+        "extensionContext"
+      ],
+      "related": [
+        "vscode"
+      ],
+      "execTokens": [
+        "command",
+        "internal"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/commands/updateIndex.ts",
+      "functionName": "updateIndexWithRateLimit",
+      "dependsOn": [
+        "updateIndexWrapper",
+        "debounce"
+      ],
+      "related": [
+        "vscode"
+      ],
+      "execTokens": [
+        "command",
+        "throttle",
+        "watch"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/composerIntegration.ts",
+      "functionName": "ComposerIntegration.getFunctionData",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/composerIntegration.ts",
+      "functionName": "ComposerIntegration.getFunctionData",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "saveToSqlite",
+      "dependsOn": [
+        "initializeDatabase",
+        "db"
+      ],
+      "related": [
+        "AITag",
+        "Database"
+      ],
+      "execTokens": [
+        "storage",
+        "database",
+        "write"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "loadFromSqlite",
+      "dependsOn": [
+        "initializeDatabase",
+        "db"
+      ],
+      "related": [
+        "AIFunctionRegistry",
+        "AITag",
+        "Database"
+      ],
+      "execTokens": [
+        "storage",
+        "database",
+        "read"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "loadFromSqlite",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "registry",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "getFunctionDataFromSqlite",
+      "dependsOn": [
+        "initializeDatabase",
+        "db"
+      ],
+      "related": [
+        "AITag",
+        "Database"
+      ],
+      "execTokens": [
+        "storage",
+        "database",
+        "query"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "getFunctionDataFromSqlite",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "findDependentFunctions",
+      "dependsOn": [
+        "initializeDatabase",
+        "db"
+      ],
+      "related": [
+        "AITag",
+        "Database"
+      ],
+      "execTokens": [
+        "storage",
+        "database",
+        "query",
+        "dependencies"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "findRelatedFunctions",
+      "dependsOn": [
+        "initializeDatabase",
+        "db"
+      ],
+      "related": [
+        "AITag",
+        "Database"
+      ],
+      "execTokens": [
+        "storage",
+        "database",
+        "query",
+        "related"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "findFunctionsByExecToken",
+      "dependsOn": [
+        "initializeDatabase",
+        "db"
+      ],
+      "related": [
+        "AITag",
+        "Database"
+      ],
+      "execTokens": [
+        "storage",
+        "database",
+        "query",
+        "tokens"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "findFunctionsByExecToken",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "getFunctionData",
+      "dependsOn": [
+        "getFunctionDataFromSqlite",
+        "logger"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "storage",
+        "database",
+        "query",
+        "wrapper"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "getFunctionData",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "data",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "data",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "closeDatabase",
+      "dependsOn": [
+        "db"
+      ],
+      "related": [
+        "Database"
+      ],
+      "execTokens": [
+        "storage",
+        "database",
+        "cleanup"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "searchFunctions",
+      "dependsOn": [
+        "db",
+        "logger"
+      ],
+      "related": [
+        "AITag",
+        "FunctionRow",
+        "DependencyRow",
+        "RelatedRow",
+        "ExecTokenRow"
+      ],
+      "execTokens": [
+        "storage",
+        "query",
+        "search",
+        "sqlite"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "getAllFunctions",
+      "dependsOn": [
+        "db",
+        "logger"
+      ],
+      "related": [
+        "AITag",
+        "FunctionRow",
+        "DependencyRow",
+        "RelatedRow",
+        "ExecTokenRow"
+      ],
+      "execTokens": [
+        "storage",
+        "query",
+        "sqlite"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
+      "functionName": "getAllFunctions",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
+      "functionName": "saveToJson",
+      "dependsOn": [
+        "vscode"
+      ],
+      "related": [
+        "AIFunctionRegistry",
+        "AITag"
+      ],
+      "execTokens": [
+        "storage",
+        "write",
+        "json"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
+      "functionName": "getFunctionData",
+      "dependsOn": [
+        "loadRegistry",
+        "logger"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "storage",
+        "query",
+        "json"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
+      "functionName": "findDependentFunctions",
+      "dependsOn": [
+        "loadRegistry",
+        "logger"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "storage",
+        "query",
+        "dependencies",
+        "json"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
+      "functionName": "findRelatedFunctions",
+      "dependsOn": [
+        "loadRegistry",
+        "logger"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "storage",
+        "query",
+        "related",
+        "json"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
+      "functionName": "findFunctionsByExecToken",
+      "dependsOn": [
+        "loadRegistry",
+        "logger"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "storage",
+        "query",
+        "tokens",
+        "json"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
+      "functionName": "searchFunctions",
+      "dependsOn": [
+        "loadRegistry",
+        "logger"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "storage",
+        "query",
+        "search",
+        "json"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
+      "functionName": "getAllFunctions",
+      "dependsOn": [
+        "loadRegistry",
+        "logger"
+      ],
+      "related": [
+        "AITag"
+      ],
+      "execTokens": [
+        "storage",
+        "query",
+        "json"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
+      "functionName": "getAllFunctions",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/test/updateIndex.test.ts",
+      "functionName": "testFunction",
+      "dependsOn": [
+        "helperFunction"
+      ],
+      "related": [
+        "TestModule"
+      ],
+      "execTokens": [
+        "test",
+        "benchmark"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/test/updateIndex.test.ts",
+      "functionName": "testFunction",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/test/updateIndex.test.ts",
+      "functionName": "function",
+      "dependsOn": [
+        "helper"
+      ],
+      "related": [
+        "Module"
+      ],
+      "execTokens": [
+        "test"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/test/updateIndex.test.ts",
+      "functionName": "function",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/test/updateIndex.test.ts",
+      "functionName": "function",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/test/performance.test.ts",
+      "functionName": "function",
+      "dependsOn": [
+        "helper"
+      ],
+      "related": [
+        "Module"
+      ],
+      "execTokens": [
+        "test",
+        "benchmark"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/test/performance.test.ts",
+      "functionName": "function",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/test/performance.test.ts",
+      "functionName": "runBenchmark",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/test/performance.test.ts",
+      "functionName": "queryTime",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
       "filePath": "/home/pat/Projects/funcmap/out/commands/updateIndex.js",
       "functionName": "adopt",
       "dependsOn": [],
@@ -657,184 +1312,72 @@
       "execTokens": []
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/logger.js",
-      "functionName": "_log",
-      "dependsOn": [
-        "LogLevel",
-        "_outputChannel"
-      ],
-      "related": [
-        "Logger"
-      ],
-      "execTokens": [
-        "logging",
-        "internal"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
-      "functionName": "names",
+      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
+      "functionName": "parseFilesForAITags",
       "dependsOn": [],
       "related": [],
       "execTokens": []
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
-      "functionName": "TagSanitizationError",
-      "dependsOn": [],
-      "related": [
-        "Error"
-      ],
-      "execTokens": [
-        "error",
-        "security"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
-      "functionName": "TagSanitizationError.super",
+      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
+      "functionName": "definitions.match",
       "dependsOn": [],
       "related": [],
       "execTokens": []
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
-      "functionName": "sanitizeFunctionName",
-      "dependsOn": [
-        "TagSanitizationError",
-        "VALID_NAME_REGEX"
-      ],
-      "related": [
-        "sanitizeAITag"
-      ],
-      "execTokens": [
-        "security",
-        "validation"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
-      "functionName": "sanitizeFilePath",
-      "dependsOn": [
-        "TagSanitizationError",
-        "VALID_PATH_REGEX"
-      ],
-      "related": [
-        "sanitizeAITag"
-      ],
-      "execTokens": [
-        "security",
-        "validation",
-        "filesystem"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
-      "functionName": "sanitizeTagList",
-      "dependsOn": [
-        "TagSanitizationError",
-        "VALID_NAME_REGEX"
-      ],
-      "related": [
-        "sanitizeAITag"
-      ],
-      "execTokens": [
-        "security",
-        "validation"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
-      "functionName": "sanitizeExecTokens",
-      "dependsOn": [
-        "TagSanitizationError"
-      ],
-      "related": [
-        "sanitizeAITag"
-      ],
-      "execTokens": [
-        "security",
-        "validation",
-        "tokens"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
-      "functionName": "sanitizeAITag",
-      "dependsOn": [
-        "sanitizeFunctionName",
-        "sanitizeFilePath",
-        "sanitizeTagList",
-        "sanitizeExecTokens"
-      ],
-      "related": [
-        "TagSanitizationError"
-      ],
-      "execTokens": [
-        "security",
-        "validation",
-        "main"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
-      "functionName": "sanitizeAITag",
+      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
+      "functionName": "definitions.debug",
       "dependsOn": [],
       "related": [],
       "execTokens": []
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/config.js",
-      "functionName": "getConfiguration",
+      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
+      "functionName": "declarations",
       "dependsOn": [],
       "related": [],
       "execTokens": []
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/debounce.js",
-      "functionName": "that",
+      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
+      "functionName": "properties",
       "dependsOn": [],
       "related": [],
       "execTokens": []
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/debounce.js",
-      "functionName": "debounce",
+      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
+      "functionName": "methods.match",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
+      "functionName": "definition.split",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
+      "functionName": "X",
       "dependsOn": [
-        "clearTimeout",
-        "setTimeout"
+        "X",
+        "Y",
+        "Z"
       ],
       "related": [
-        "NodeJS"
+        "X",
+        "Y",
+        "Z"
       ],
       "execTokens": [
-        "utility",
-        "performance",
-        "throttling"
+        "X",
+        "Y",
+        "Z"
       ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/debounce.js",
-      "functionName": "debounced",
-      "dependsOn": [
-        "clearTimeout",
-        "setTimeout",
-        "func"
-      ],
-      "related": [
-        "debounce"
-      ],
-      "execTokens": [
-        "utility",
-        "internal"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/out/utils/debounce.js",
-      "functionName": "debounced",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
     },
     {
       "filePath": "/home/pat/Projects/funcmap/out/extension.js",
@@ -1173,584 +1716,8 @@
       "execTokens": []
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "RegistryError.super",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "RegistryNotFoundError.super",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "registry",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "RegistryParseError.super",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "registry",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "readFunctionRegistry",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "registry",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "getFunctionData",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "name",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "findDependentFunctions",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "name",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "findRelatedFunctions",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "findFunctionsByExecToken",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/demo.js",
-      "functionName": "runDemo",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/commands/updateIndex.ts",
-      "functionName": "updateIndex",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/commands/updateIndex.ts",
-      "functionName": "registry",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/commands/updateIndex.ts",
-      "functionName": "updateIndexWrapper",
-      "dependsOn": [
-        "updateIndex",
-        "extensionContext"
-      ],
-      "related": [
-        "vscode"
-      ],
-      "execTokens": [
-        "command",
-        "internal"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/commands/updateIndex.ts",
-      "functionName": "updateIndexWithRateLimit",
-      "dependsOn": [
-        "updateIndexWrapper",
-        "debounce"
-      ],
-      "related": [
-        "vscode"
-      ],
-      "execTokens": [
-        "command",
-        "throttle",
-        "watch"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
-      "functionName": "parseFilesForAITags",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
-      "functionName": "definitions.match",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
-      "functionName": "definitions.debug",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
-      "functionName": "declarations",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
-      "functionName": "properties",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
-      "functionName": "methods.match",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
-      "functionName": "definition.split",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/parser/aiTagParser.ts",
-      "functionName": "X",
-      "dependsOn": [
-        "X",
-        "Y",
-        "Z"
-      ],
-      "related": [
-        "X",
-        "Y",
-        "Z"
-      ],
-      "execTokens": [
-        "X",
-        "Y",
-        "Z"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/composerIntegration.ts",
-      "functionName": "ComposerIntegration.getFunctionData",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/composerIntegration.ts",
-      "functionName": "ComposerIntegration.getFunctionData",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "saveToSqlite",
-      "dependsOn": [
-        "initializeDatabase",
-        "db"
-      ],
-      "related": [
-        "AITag",
-        "Database"
-      ],
-      "execTokens": [
-        "storage",
-        "database",
-        "write"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "loadFromSqlite",
-      "dependsOn": [
-        "initializeDatabase",
-        "db"
-      ],
-      "related": [
-        "AIFunctionRegistry",
-        "AITag",
-        "Database"
-      ],
-      "execTokens": [
-        "storage",
-        "database",
-        "read"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "loadFromSqlite",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "registry",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "getFunctionDataFromSqlite",
-      "dependsOn": [
-        "initializeDatabase",
-        "db"
-      ],
-      "related": [
-        "AITag",
-        "Database"
-      ],
-      "execTokens": [
-        "storage",
-        "database",
-        "query"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "getFunctionDataFromSqlite",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "findDependentFunctions",
-      "dependsOn": [
-        "initializeDatabase",
-        "db"
-      ],
-      "related": [
-        "AITag",
-        "Database"
-      ],
-      "execTokens": [
-        "storage",
-        "database",
-        "query",
-        "dependencies"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "findRelatedFunctions",
-      "dependsOn": [
-        "initializeDatabase",
-        "db"
-      ],
-      "related": [
-        "AITag",
-        "Database"
-      ],
-      "execTokens": [
-        "storage",
-        "database",
-        "query",
-        "related"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "findFunctionsByExecToken",
-      "dependsOn": [
-        "initializeDatabase",
-        "db"
-      ],
-      "related": [
-        "AITag",
-        "Database"
-      ],
-      "execTokens": [
-        "storage",
-        "database",
-        "query",
-        "tokens"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "findFunctionsByExecToken",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "getFunctionData",
-      "dependsOn": [
-        "getFunctionDataFromSqlite",
-        "logger"
-      ],
-      "related": [
-        "AITag"
-      ],
-      "execTokens": [
-        "storage",
-        "database",
-        "query",
-        "wrapper"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "getFunctionData",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "data",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "data",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "closeDatabase",
-      "dependsOn": [
-        "db"
-      ],
-      "related": [
-        "Database"
-      ],
-      "execTokens": [
-        "storage",
-        "database",
-        "cleanup"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "searchFunctions",
-      "dependsOn": [
-        "db",
-        "logger"
-      ],
-      "related": [
-        "AITag",
-        "FunctionRow",
-        "DependencyRow",
-        "RelatedRow",
-        "ExecTokenRow"
-      ],
-      "execTokens": [
-        "storage",
-        "query",
-        "search",
-        "sqlite"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "getAllFunctions",
-      "dependsOn": [
-        "db",
-        "logger"
-      ],
-      "related": [
-        "AITag",
-        "FunctionRow",
-        "DependencyRow",
-        "RelatedRow",
-        "ExecTokenRow"
-      ],
-      "execTokens": [
-        "storage",
-        "query",
-        "sqlite"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/sqliteStorage.ts",
-      "functionName": "getAllFunctions",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
-      "functionName": "saveToJson",
-      "dependsOn": [
-        "vscode"
-      ],
-      "related": [
-        "AIFunctionRegistry",
-        "AITag"
-      ],
-      "execTokens": [
-        "storage",
-        "write",
-        "json"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
-      "functionName": "getFunctionData",
-      "dependsOn": [
-        "loadRegistry",
-        "logger"
-      ],
-      "related": [
-        "AITag"
-      ],
-      "execTokens": [
-        "storage",
-        "query",
-        "json"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
-      "functionName": "findDependentFunctions",
-      "dependsOn": [
-        "loadRegistry",
-        "logger"
-      ],
-      "related": [
-        "AITag"
-      ],
-      "execTokens": [
-        "storage",
-        "query",
-        "dependencies",
-        "json"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
-      "functionName": "findRelatedFunctions",
-      "dependsOn": [
-        "loadRegistry",
-        "logger"
-      ],
-      "related": [
-        "AITag"
-      ],
-      "execTokens": [
-        "storage",
-        "query",
-        "related",
-        "json"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
-      "functionName": "findFunctionsByExecToken",
-      "dependsOn": [
-        "loadRegistry",
-        "logger"
-      ],
-      "related": [
-        "AITag"
-      ],
-      "execTokens": [
-        "storage",
-        "query",
-        "tokens",
-        "json"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
-      "functionName": "searchFunctions",
-      "dependsOn": [
-        "loadRegistry",
-        "logger"
-      ],
-      "related": [
-        "AITag"
-      ],
-      "execTokens": [
-        "storage",
-        "query",
-        "search",
-        "json"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
-      "functionName": "getAllFunctions",
-      "dependsOn": [
-        "loadRegistry",
-        "logger"
-      ],
-      "related": [
-        "AITag"
-      ],
-      "execTokens": [
-        "storage",
-        "query",
-        "json"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/storage/jsonStorage.ts",
-      "functionName": "getAllFunctions",
+      "filePath": "/home/pat/Projects/funcmap/src/utils/config.ts",
+      "functionName": "getConfiguration",
       "dependsOn": [],
       "related": [],
       "execTokens": []
@@ -1929,250 +1896,185 @@
       "execTokens": []
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/src/utils/config.ts",
+      "filePath": "/home/pat/Projects/funcmap/out/utils/logger.js",
+      "functionName": "_log",
+      "dependsOn": [
+        "LogLevel",
+        "_outputChannel"
+      ],
+      "related": [
+        "Logger"
+      ],
+      "execTokens": [
+        "logging",
+        "internal"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
+      "functionName": "names",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
+      "functionName": "TagSanitizationError",
+      "dependsOn": [],
+      "related": [
+        "Error"
+      ],
+      "execTokens": [
+        "error",
+        "security"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
+      "functionName": "TagSanitizationError.super",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
+      "functionName": "sanitizeFunctionName",
+      "dependsOn": [
+        "TagSanitizationError",
+        "VALID_NAME_REGEX"
+      ],
+      "related": [
+        "sanitizeAITag"
+      ],
+      "execTokens": [
+        "security",
+        "validation"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
+      "functionName": "sanitizeFilePath",
+      "dependsOn": [
+        "TagSanitizationError",
+        "VALID_PATH_REGEX"
+      ],
+      "related": [
+        "sanitizeAITag"
+      ],
+      "execTokens": [
+        "security",
+        "validation",
+        "filesystem"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
+      "functionName": "sanitizeTagList",
+      "dependsOn": [
+        "TagSanitizationError",
+        "VALID_NAME_REGEX"
+      ],
+      "related": [
+        "sanitizeAITag"
+      ],
+      "execTokens": [
+        "security",
+        "validation"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
+      "functionName": "sanitizeExecTokens",
+      "dependsOn": [
+        "TagSanitizationError"
+      ],
+      "related": [
+        "sanitizeAITag"
+      ],
+      "execTokens": [
+        "security",
+        "validation",
+        "tokens"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
+      "functionName": "sanitizeAITag",
+      "dependsOn": [
+        "sanitizeFunctionName",
+        "sanitizeFilePath",
+        "sanitizeTagList",
+        "sanitizeExecTokens"
+      ],
+      "related": [
+        "TagSanitizationError"
+      ],
+      "execTokens": [
+        "security",
+        "validation",
+        "main"
+      ]
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/tagSanitizer.js",
+      "functionName": "sanitizeAITag",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/config.js",
       "functionName": "getConfiguration",
       "dependsOn": [],
       "related": [],
       "execTokens": []
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "getFunctionData",
+      "filePath": "/home/pat/Projects/funcmap/out/utils/debounce.js",
+      "functionName": "that",
+      "dependsOn": [],
+      "related": [],
+      "execTokens": []
+    },
+    {
+      "filePath": "/home/pat/Projects/funcmap/out/utils/debounce.js",
+      "functionName": "debounce",
       "dependsOn": [
-        "getSqliteFunctionData",
-        "getJsonFunctionData",
-        "activeStorageType"
+        "clearTimeout",
+        "setTimeout"
       ],
       "related": [
-        "AITag"
+        "NodeJS"
       ],
       "execTokens": [
-        "query",
-        "storage"
+        "utility",
+        "performance",
+        "throttling"
       ]
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "findDependentFunctions",
+      "filePath": "/home/pat/Projects/funcmap/out/utils/debounce.js",
+      "functionName": "debounced",
       "dependsOn": [
-        "findSqliteDependentFunctions",
-        "activeStorageType",
-        "vscode"
+        "clearTimeout",
+        "setTimeout",
+        "func"
       ],
       "related": [
-        "AITag"
+        "debounce"
       ],
       "execTokens": [
-        "query",
-        "dependencies"
+        "utility",
+        "internal"
       ]
     },
     {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "findDependentFunctions",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "findRelatedFunctions",
-      "dependsOn": [
-        "findSqliteRelatedFunctions",
-        "activeStorageType",
-        "vscode"
-      ],
-      "related": [
-        "AITag"
-      ],
-      "execTokens": [
-        "query",
-        "related"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "findRelatedFunctions",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "findFunctionsByExecToken",
-      "dependsOn": [
-        "findSqliteFunctionsByExecToken",
-        "activeStorageType",
-        "vscode"
-      ],
-      "related": [
-        "AITag"
-      ],
-      "execTokens": [
-        "query",
-        "tokens"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "findFunctionsByExecToken",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "activate",
-      "dependsOn": [
-        "logger"
-      ],
-      "related": [
-        "vscode"
-      ],
-      "execTokens": [
-        "extension",
-        "initialization"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "activate",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "name",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "name",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "data",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "name",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "deactivate",
-      "dependsOn": [
-        "logger"
-      ],
-      "related": [
-        "vscode"
-      ],
-      "execTokens": [
-        "extension",
-        "cleanup"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/extension.ts",
-      "functionName": "deactivate",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/test/updateIndex.test.ts",
-      "functionName": "testFunction",
-      "dependsOn": [
-        "helperFunction"
-      ],
-      "related": [
-        "TestModule"
-      ],
-      "execTokens": [
-        "test",
-        "benchmark"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/test/updateIndex.test.ts",
-      "functionName": "testFunction",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/test/updateIndex.test.ts",
-      "functionName": "function",
-      "dependsOn": [
-        "helper"
-      ],
-      "related": [
-        "Module"
-      ],
-      "execTokens": [
-        "test"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/test/updateIndex.test.ts",
-      "functionName": "function",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/test/updateIndex.test.ts",
-      "functionName": "function",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/test/performance.test.ts",
-      "functionName": "function",
-      "dependsOn": [
-        "helper"
-      ],
-      "related": [
-        "Module"
-      ],
-      "execTokens": [
-        "test",
-        "benchmark"
-      ]
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/test/performance.test.ts",
-      "functionName": "function",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/test/performance.test.ts",
-      "functionName": "runBenchmark",
-      "dependsOn": [],
-      "related": [],
-      "execTokens": []
-    },
-    {
-      "filePath": "/home/pat/Projects/funcmap/src/test/performance.test.ts",
-      "functionName": "queryTime",
+      "filePath": "/home/pat/Projects/funcmap/out/utils/debounce.js",
+      "functionName": "debounced",
       "dependsOn": [],
       "related": [],
       "execTokens": []
     }
   ],
-  "lastUpdated": "2025-03-15T03:25:14.337Z"
+  "lastUpdated": "2025-03-15T03:40:51.292Z"
 }
