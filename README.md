@@ -26,6 +26,20 @@ A VS Code/Cursor extension that creates a pre-indexed, AI-queryable function reg
 
 ### Installation
 
+#### From VSIX File
+Download the [latest release](https://github.com/derungo/funcmap/releases) and install it in VS Code:
+1. Open VS Code
+2. Go to Extensions view (Ctrl+Shift+X)
+3. Click "..." menu in the top-right corner
+4. Select "Install from VSIX..."
+5. Navigate to and select the downloaded VSIX file
+
+Alternatively, install from command line:
+```bash
+code --install-extension funcmap-0.1.0.vsix
+```
+
+#### From Source
 ```bash
 git clone https://github.com/derungo/funcmap.git
 cd funcmap
@@ -180,6 +194,12 @@ funcmap/
 npm run compile
 ```
 
+### Packaging the Extension
+
+```bash
+npm run package
+```
+
 ### Running Tests
 
 ```bash
@@ -188,7 +208,7 @@ npm test
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ## 🤝 Contributing
 

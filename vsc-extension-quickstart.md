@@ -1,21 +1,20 @@
-# AI Contextual Linking & Execution System - Quick Start Guide
+# AI Contextual Linking & Execution System - Extension Quick Start
 
-## What is it?
+## What's in the folder
 
-This VS Code extension enhances AI-assisted development by creating an AI-queryable function registry. It indexes function metadata and relationships, allowing AI tools to understand code context quickly without scanning the entire codebase.
+* This folder contains all of the files necessary for the AI Contextual Linking & Execution System extension.
+* `package.json` - this is the manifest file that defines the extension's metadata and activation events.
+* `src/extension.ts` - this is the main file where the extension code is registered.
+* The `src` folder contains all the TypeScript source code for the extension.
 
-## Features
+## Get up and running straight away
 
-- Tag functions with `@ai-link`, `@ai-depends`, and `@ai-related` to map code relationships
-- Use `@ai-exec` to trigger function-specific automation
-- Choose between JSON or SQLite storage for the function registry
-- Enhanced function detection for regular functions, arrow functions, async functions, and class methods
+* Press `F5` to open a new window with your extension loaded.
+* Run the command "AI Contextual Linking: Update Index" from the Command Palette (Ctrl+Shift+P).
+* Add AI tags to your functions (see below for examples).
+* Use the extension commands to query the function registry.
 
-## Getting Started
-
-### 1. Tag Your Functions
-
-Add AI-specific comments to your functions:
+## AI Tags Examples
 
 ```typescript
 // @ai-link name=fetchUserData
@@ -27,44 +26,38 @@ async function fetchUserData(userId) {
 }
 ```
 
-### 2. Update Your AI Index
+## Make changes
 
-- **Automatically**: The extension watches file changes
-- **Manually**: Run the "AI Contextual Linking: Update Index" command (Ctrl+Shift+P)
+* You can relaunch the extension from the debug toolbar after changing code in `src/extension.ts`.
+* You can also reload (`Ctrl+R` or `Cmd+R` on Mac) the VS Code window with your extension to load your changes.
 
-### 3. Access Function Relationships
+## Explore the API
 
-Use the extension's API to access function relationships:
+* You can open the full set of our API when you open the file `node_modules/@types/vscode/index.d.ts`.
 
-```typescript
-// Get data for a specific function
-const functionData = await vscode.commands.executeCommand('aiContextualLinking.getFunctionData', 'fetchUserData');
+## Building and Packaging
 
-// Find functions that depend on a specific function
-const dependentFunctions = await vscode.commands.executeCommand('aiContextualLinking.findDependentFunctions', 'validateInput');
+* To build the extension, run `npm run compile`.
+* To package the extension into a VSIX file, run `npm run package`.
+* To install the packaged extension, use the "Extensions: Install from VSIX..." command in VS Code.
 
-// Find functions related to a specific module
-const relatedFunctions = await vscode.commands.executeCommand('aiContextualLinking.findRelatedFunctions', 'UserModel');
+## Extension Settings
 
-// Find functions with a specific execution token
-const testFunctions = await vscode.commands.executeCommand('aiContextualLinking.findFunctionsByExecToken', 'test');
-```
+This extension contributes the following settings:
 
-## Configuration
+* `aiContextualLinking.watchFiles`: Enable or disable automatic file watching for index updates. Defaults to `true`.
+* `aiContextualLinking.filePatterns`: Define file patterns to include in the index scan. Defaults to `["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"]`.
+* `aiContextualLinking.storageType`: Storage type for the function registry (json or sqlite). Defaults to `json`.
 
-The extension can be configured through VS Code settings:
+## Extension Commands
 
-- `aiContextualLinking.watchFiles`: Enable/disable automatic file watching (default: `true`)
-- `aiContextualLinking.filePatterns`: File patterns to include in scanning (default: `["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"]`)
-- `aiContextualLinking.storageType`: Storage type for the function registry (default: `json`)
+* `AI Contextual Linking: Update Index`: Manually triggers the update of the AI function registry.
+* `AI Contextual Linking: Get Function Data`: Gets data for a specific function.
+* `AI Contextual Linking: Find Dependent Functions`: Finds functions that depend on a specific function.
+* `AI Contextual Linking: Find Related Functions`: Finds functions related to a specific module.
+* `AI Contextual Linking: Find Functions By Execution Token`: Finds functions with a specific execution token.
 
-## Documentation
+## For more information
 
-For more detailed information, please see:
-- [Architecture Overview](./docs/architecture-overview.md)
-- [Usage Guide](./docs/usage-guide.md)
-- [Generated Documentation](./docs/generated-docs.md)
-
-## Support
-
-If you encounter any issues or have questions, please visit the [GitHub repository](https://github.com/derungo/funcmap). 
+* [Visual Studio Code's Extension API](https://code.visualstudio.com/api)
+* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines) 

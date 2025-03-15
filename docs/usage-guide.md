@@ -85,6 +85,28 @@ Future versions will add support for additional programming languages with their
 
 ## Working with the Extension
 
+### Installation
+
+#### From VSIX File
+Download the [latest release](https://github.com/derungo/funcmap/releases) and install it in VS Code:
+1. Open VS Code
+2. Go to Extensions view (Ctrl+Shift+X)
+3. Click "..." menu in the top-right corner
+4. Select "Install from VSIX..."
+5. Navigate to and select the downloaded VSIX file
+
+Alternatively, install from command line:
+```bash
+code --install-extension funcmap-0.1.0.vsix
+```
+
+#### From Source
+```bash
+git clone https://github.com/derungo/funcmap.git
+cd funcmap
+npm install
+```
+
 ### Updating the Index
 
 The extension automatically watches for file changes and updates the index. You can also manually trigger an update:
@@ -181,23 +203,6 @@ testFunctions.forEach(func => {
   // Generate test code based on function details
 });
 ```
-
-## Cursor AI Integration
-
-When using Cursor IDE with this extension:
-
-1. The AI can automatically find dependencies without scanning the full codebase
-2. Ask questions like "What functions depend on validateUser?"
-3. Request "Run tests for all functions that depend on the database layer"
-4. Suggest refactoring with awareness of all dependencies
-
-### Example Cursor Prompts
-
-- "Show me all functions that depend on the `authenticateUser` function"
-- "What modules are related to the `UserService`?"
-- "Generate tests for functions with the `@ai-exec test` tag"
-- "Refactor the `processPayment` function and update all dependent functions"
-- "Explain the dependency chain for the `submitOrder` function"
 
 ### Advanced AI Prompts
 
