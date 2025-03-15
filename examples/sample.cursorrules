@@ -1,105 +1,58 @@
+## PROJECT OVERVIEW
+- This project integrates the **FuncMap extension** into Cursor Composer to handle function introspection and relationships.
+- A global object, `global.funcmapForComposer`, is available for all function registry operations.
+
+## EXTENSION USAGE
+- **Always prefer using FuncMap** for function lookups or searches:
+  - `getFunctionData(functionName)` for detailed info about a function
+  - `findDependentFunctions(functionName)` for who depends on that function
+  - `findRelatedFunctions(moduleName)` for module relationships
+  - `findFunctionsByExecToken(token)` to filter by execution token
+  - `searchFunctions(query)` for keyword-based searches
+  - `getAllFunctions()` to list everything
+- **Do not** manually scan or open files one by one to find functions – use FuncMap methods instead.
+- Verify readiness via `isReady()` if needed.
+
+## BEST PRACTICES
+- **Tag Functions**:
+  - Use `@ai-link name=MyFunction`  
+  - Use `@ai-depends on=OtherFunction`  
+  - Use `@ai-related SomeModule`  
+  - Use `@ai-exec myContext`  
+- **Use Clear Names** for functions and modules to improve semantic searches.
+- **Maintain Dependencies**: Keep `@ai-depends` updated so that `findDependentFunctions` remains accurate.
+- **Group Related Functions** with `@ai-related` to quickly discover relevant code pieces.
+
+## RULES CONFIGURATION (JSON Example)
+```json
 {
   "version": 1,
   "name": "FuncMap Integration",
-  "description": "Configuration for integrating FuncMap with Cursor Composer",
+  "description": "Configuration for FuncMap integration",
   "settings": {
     "funcmap.watchFiles": true,
-    "funcmap.filePatterns": [
-      "**/*.js",
-      "**/*.ts",
-      "**/*.jsx",
-      "**/*.tsx"
-    ],
+    "funcmap.filePatterns": ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"],
     "funcmap.storageType": "json"
   },
   "rules": [
     {
       "name": "PreferFuncMapSearch",
-      "description": "Prefer using FuncMap's function registry over standard code search",
+      "description": "Use FuncMap's registry over standard search",
       "priority": "high",
-      "when": "global.funcmapForComposer !== undefined && await global.funcmapForComposer.isReady()",
+      "when": "global.funcmapForComposer !== undefined",
       "do": [
         {
           "action": "use_funcmap_search",
-          "description": "Use FuncMap's search capabilities before standard search tools",
+          "description": "Use FuncMap's search capabilities",
           "steps": [
-            "Check if function exists using getFunctionData",
+            "Check function existence with getFunctionData",
             "Use searchFunctions for semantic search",
             "Explore dependencies with findDependentFunctions",
             "Find related modules using findRelatedFunctions",
-            "Search by execution token using findFunctionsByExecToken",
-            "Get complete registry using getAllFunctions"
+            "Search by exec token using findFunctionsByExecToken"
           ]
         }
       ]
     }
-  ],
-  "search_strategy": {
-    "order": [
-      {
-        "name": "funcmap_registry",
-        "description": "Primary search using FuncMap's function registry",
-        "implementation": {
-          "type": "function",
-          "steps": [
-            "1. For exact matches: await global.funcmapForComposer.getFunctionData(name)",
-            "2. For semantic search: await global.funcmapForComposer.searchFunctions(query)",
-            "3. For dependencies: await global.funcmapForComposer.findDependentFunctions(name)",
-            "4. For related code: await global.funcmapForComposer.findRelatedFunctions(module)",
-            "5. For execution patterns: await global.funcmapForComposer.findFunctionsByExecToken(token)"
-          ]
-        }
-      },
-      {
-        "name": "fallback_search",
-        "description": "Fallback to standard search methods",
-        "implementation": {
-          "type": "fallback",
-          "tools": ["codebase_search", "grep_search", "file_search"]
-        }
-      }
-    ]
-  },
-  "examples": [
-    {
-      "task": "Find function implementation",
-      "query": "What does validateUserInput do?",
-      "solution": {
-        "code": "const func = await global.funcmapForComposer.getFunctionData('validateUserInput');",
-        "explanation": "Get direct function information from registry"
-      }
-    },
-    {
-      "task": "Find related functions",
-      "query": "What functions are related to user authentication?",
-      "solution": {
-        "code": "const funcs = await global.funcmapForComposer.searchFunctions('user authentication');",
-        "explanation": "Semantic search across function registry"
-      }
-    }
-  ],
-  "tags": {
-    "patterns": [
-      {
-        "name": "aiLink",
-        "pattern": "// @ai-link name={name}",
-        "description": "Link function to AI index"
-      },
-      {
-        "name": "aiDepends",
-        "pattern": "// @ai-depends on={dependencies}",
-        "description": "Specify function dependencies"
-      },
-      {
-        "name": "aiRelated",
-        "pattern": "// @ai-related {modules}",
-        "description": "Link to related modules"
-      },
-      {
-        "name": "aiExec",
-        "pattern": "// @ai-exec {tokens}",
-        "description": "Define execution tokens"
-      }
-    ]
-  }
-} 
+  ]
+}
