@@ -1,4 +1,6 @@
-# FuncMap
+# FuncMap [DEPRECATED]
+
+> ⚠️ **DEPRECATED**: This project is no longer maintained. The functionality has been upgraded and moved to the new project [cursor-context](https://github.com/cursor-ai/cursor-context). Please use that instead.
 
 AI-queryable function registry with Cursor Composer integration for enhanced development.
 
@@ -28,7 +30,7 @@ FuncMap helps you understand your codebase by:
 
 ## Installation
 
-1. Install the extension from the VS Code marketplace
+1. Clone this repository
 2. If using with Cursor Composer, create a `.cursorrules` file in your project root (see example below)
 3. Add AI tags to your functions to enhance searchability
 

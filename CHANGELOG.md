@@ -1,6 +1,15 @@
 # Change Log
 
+> ⚠️ **DEPRECATED**: This project is no longer maintained. The functionality has been upgraded and moved to the new project [cursor-context](https://github.com/cursor-ai/cursor-context).
+
 All notable changes to the "funcmap" extension will be documented in this file.
+
+## [0.4.2] - 2024-03-22
+
+### Changed
+- Project marked as deprecated
+- Removed VS Code marketplace references
+- Updated documentation to point to cursor-context as the successor
 
 ## [0.4.1] - 2024-03-21
 
