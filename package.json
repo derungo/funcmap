@@ -1,9 +1,10 @@
 {
   "name": "funcmap",
-  "displayName": "FuncMap",
-  "description": "AI-queryable function registry with Cursor Composer integration for enhanced development",
-  "version": "0.4.1",
+  "displayName": "FuncMap [DEPRECATED]",
+  "description": "[DEPRECATED] AI-queryable function registry with Cursor Composer integration. Please use cursor-context instead.",
+  "version": "0.4.2",
   "publisher": "derungo",
+  "deprecated": true,
   "icon": "images/icon.png",
   "repository": {
     "type": "git",
